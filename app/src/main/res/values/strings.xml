@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">U-Money</string>
+    <string name="wallet">Sổ giao dịch</string>
+    <string name="report">Báo cáo</string>
+    <string name="plan">Lập kế hoạch</string>
+    <string name="user">Cá nhân</string>
+</resources>
