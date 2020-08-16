@@ -1,5 +1,6 @@
 package com.itus.u_money.mvp.view.activity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.itus.u_money.mvp.view.fragment.UserFragment;
 import com.itus.u_money.mvp.view.fragment.WalletFragment;
 
 public class MainActivity extends AppCompatActivity {
+   private static final int ADD_TRANSACTION = 100;
    ActivityMainBinding binding;
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -33,42 +35,34 @@ public class MainActivity extends AppCompatActivity {
       binding = ActivityMainBinding.inflate(getLayoutInflater());
       setContentView(binding.getRoot());
       loadFragment(new WalletFragment());
-      binding.frameContainer.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-            binding.motionLayout.transitionToStart();
-         }
-      });
+      binding.frameContainer.setOnClickListener(view -> binding.motionLayout.transitionToStart());
       Stetho.initializeWithDefaults(this);
 
-      binding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-         @Override
-         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment = null;
-            switch (item.getItemId()) {
-               case R.id.navigation_null:
-                  revertMotion();
-                  break;
-               case R.id.navigation_wallet:
-                  fragment = new WalletFragment();
-                  break;
-               case R.id.navigation_report:
-                  fragment = new ReportFragment();
-                  break;
-               case R.id.navigation_plan:
-                  fragment = new PlanFragment();
-                  break;
-               case R.id.navigation_user:
-                  fragment = new UserFragment();
-                  break;
-            }
-            if (fragment != null) {
-               binding.motionLayout.transitionToStart();
-               loadFragment(fragment);
-               return true;
-            } else
-               return false;
+      binding.navigation.setOnNavigationItemSelectedListener(item -> {
+         Fragment fragment = null;
+         switch (item.getItemId()) {
+            case R.id.navigation_null:
+               revertMotion();
+               break;
+            case R.id.navigation_wallet:
+               fragment = new WalletFragment();
+               break;
+            case R.id.navigation_report:
+               fragment = new ReportFragment();
+               break;
+            case R.id.navigation_plan:
+               fragment = new PlanFragment();
+               break;
+            case R.id.navigation_user:
+               fragment = new UserFragment();
+               break;
          }
+         if (fragment != null) {
+            binding.motionLayout.transitionToStart();
+            loadFragment(fragment);
+            return true;
+         } else
+            return false;
       });
    }
 
@@ -84,4 +78,9 @@ public class MainActivity extends AppCompatActivity {
       fragmentTransaction.commit();
    }
 
+   public void addTransaction(View view) {
+      Intent intent = new Intent(this, AddTransactionActivity.class);
+      startActivityForResult(intent, ADD_TRANSACTION);
+      binding.motionLayout.transitionToStart();
+   }
 }

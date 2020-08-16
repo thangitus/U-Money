@@ -8,7 +8,7 @@
             android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:rotation="45"
+            android:rotation="225"
             app:layout_constraintBottom_toBottomOf="@id/navigation"
             app:layout_constraintEnd_toEndOf="@id/navigation"
             app:layout_constraintStart_toStartOf="@id/navigation"
@@ -110,7 +110,7 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="200">
+        app:duration="300">
         <OnClick app:targetId="@+id/btn_add" />
     </Transition>
 </MotionScene>
