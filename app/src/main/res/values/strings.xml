@@ -2,6 +2,7 @@
     <string name="app_name">U-Money</string>
     <string name="wallet">Sổ giao dịch</string>
     <string name="report">Báo cáo</string>
-    <string name="plan">Lập kế hoạch</string>
+    <string name="plan">Kế hoạch</string>
     <string name="user">Cá nhân</string>
+    <string name="add_transaction">Thêm giao dịch</string>
 </resources>

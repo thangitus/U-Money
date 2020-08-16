@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motion_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/bottom_navigation_scene"
     tools:context=".mvp.view.activity.MainActivity">
 
     <FrameLayout
@@ -20,12 +22,70 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTransparency"
+        app:elevation="0dp"
         app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
-        app:itemTextColor="@color/colorTransparency"
+        app:itemTextColor="@color/colorBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_navigation"/>
+        app:menu="@menu/menu_navigation" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/view_seperate"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="@id/navigation" />
+
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorTransparency"
+        android:src="@drawable/ic_add"
+        app:altSrc="@drawable/ic_cancel"
+        app:layout_constraintBottom_toBottomOf="@id/navigation"
+        app:layout_constraintEnd_toEndOf="@id/navigation"
+        app:layout_constraintStart_toStartOf="@id/navigation"
+        app:layout_constraintTop_toTopOf="@id/navigation"
+        tools:ignore="ContentDescription" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/add_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_event"
+        app:layout_constraintCircle="@id/btn_add"
+        app:layout_constraintCircleAngle="300"
+        app:layout_constraintCircleRadius="100dp" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/add_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_transaction"
+        app:layout_constraintCircle="@id/btn_add"
+        app:layout_constraintCircleAngle="340"
+        app:layout_constraintCircleRadius="100dp" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/add_periodic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_event"
+        app:layout_constraintCircle="@id/btn_add"
+        app:layout_constraintCircleAngle="20"
+        app:layout_constraintCircleRadius="100dp" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/add_bill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_bill"
+        app:layout_constraintCircle="@id/btn_add"
+        app:layout_constraintCircleAngle="60"
+        app:layout_constraintCircleRadius="100dp" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
