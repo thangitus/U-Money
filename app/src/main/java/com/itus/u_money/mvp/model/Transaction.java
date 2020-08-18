@@ -1,21 +1,30 @@
 package com.itus.u_money.mvp.model;
 
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+@Entity
 public class Transaction {
-
    @PrimaryKey(autoGenerate = true)
-   int id;
-   String name;
-   Date date;
-   long amount;
-   String note;
-   boolean statusReport;
-   int typeTransactionID;
-   String pathImg;
-   int eventID;
-   boolean statusPay;
+   public int id;
 
+   public String name;
+
+   public Date date;
+
+   public long amount;
+
+   public String note;
+
+   public boolean statusReport;
+
+   public int typeTransactionID;
+
+   public String pathImg;
+
+   public int eventID;
+
+   public boolean statusPay;
 }
