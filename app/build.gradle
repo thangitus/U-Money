@@ -44,5 +44,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.2.5"
 
     implementation 'com.airbnb.android:lottie:3.2.2'
+    implementation 'com.aldoapps:autoformatedittext:0.9.3'
 
 }

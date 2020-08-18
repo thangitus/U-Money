@@ -6,4 +6,9 @@
     <string name="user">Cá nhân</string>
     <string name="add_transaction">Thêm giao dịch</string>
     <string name="save">Lưu</string>
+    <string name="select_group">Chọn nhóm</string>
+    <string name="note">Ghi chú</string>
+    <string name="today">Hôm nay</string>
+    <string name="select_event">Chọn sự kiện</string>
+    <string name="select_img">Chọn ảnh</string>
 </resources>
