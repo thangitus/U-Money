@@ -11,6 +11,10 @@ import java.util.List;
 @Dao
 public interface TransactionTypeWithTransactionsDAO {
     @Transaction
-    @Query("SELECT * FROM TransactionType")
-    public List<TransactionTypeWithTransactions> getTransactionTypeWithTransactions();
+    @Query("SELECT * FROM `TransactionType`")
+    public List<TransactionTypeWithTransactions> getAllTransactionTypeWithTransactions();
+
+    @Transaction
+    @Query("SELECT * FROM `TransactionType` WHERE id = :transactionTypeId LIMIT 1")
+    public TransactionTypeWithTransactions getTransactionTypeWithTransactions(int transactionTypeId);
 }

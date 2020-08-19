@@ -4,13 +4,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class TransactionType {
+public class TransactionGroup {
     @PrimaryKey
     public int id;
 
     public String name;
-
-    public int transactionGroupId;
-
-    public String iconPath;
 }

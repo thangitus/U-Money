@@ -10,21 +10,19 @@ public class Transaction {
    @PrimaryKey(autoGenerate = true)
    public int id;
 
-   public String name;
-
    public Date date;
 
    public long amount;
 
    public String note;
 
-   public boolean statusReport;
+   public boolean reportingStatus;
 
-   public int typeTransactionID;
+   public int transactionTypeId;
 
-   public String pathImg;
+   public String imagePath;
 
-   public int eventID;
+   public int eventId;
 
-   public boolean statusPay;
+   public boolean paymentStatus;
 }
