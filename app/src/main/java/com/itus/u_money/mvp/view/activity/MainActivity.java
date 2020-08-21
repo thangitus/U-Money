@@ -34,6 +34,8 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
    private static final int ADD_TRANSACTION = 100;
+   private static final int ADD_BUDGET = 101;
+
    ActivityMainBinding binding;
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
    public void addTransaction(View view) {
       Intent intent = new Intent(this, AddTransactionActivity.class);
       startActivityForResult(intent, ADD_TRANSACTION);
+      binding.motionLayout.transitionToStart();
+   }
+
+   public void addBudget(View view) {
+      Intent intent = new Intent(this, AddBudgetActivity.class);
+      startActivityForResult(intent, ADD_BUDGET);
       binding.motionLayout.transitionToStart();
    }
 }
