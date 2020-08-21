@@ -1,30 +1,20 @@
 package com.itus.u_money.mvp.view.activity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.facebook.stetho.Stetho;
-import com.facebook.stetho.inspector.elements.android.ActivityTracker;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.ActivityMainBinding;
 import com.itus.u_money.mvp.view.fragment.PlanFragment;
 import com.itus.u_money.mvp.view.fragment.ReportFragment;
 import com.itus.u_money.mvp.view.fragment.UserFragment;
-import com.itus.u_money.mvp.view.fragment.WalletFragment;
+import com.itus.u_money.mvp.view.fragment.TransactionFragment;
 
 public class MainActivity extends AppCompatActivity {
    private static final int ADD_TRANSACTION = 100;
@@ -34,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       binding = ActivityMainBinding.inflate(getLayoutInflater());
       setContentView(binding.getRoot());
-      loadFragment(new WalletFragment());
+      loadFragment(TransactionFragment.getInstance());
       binding.frameContainer.setOnClickListener(view -> binding.motionLayout.transitionToStart());
       Stetho.initializeWithDefaults(this);
 
@@ -44,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_null:
                revertMotion();
                break;
-            case R.id.navigation_wallet:
-               fragment = new WalletFragment();
+            case R.id.navigation_transaction:
+               fragment = TransactionFragment.getInstance();
                break;
             case R.id.navigation_report:
                fragment = new ReportFragment();
