@@ -7,17 +7,25 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
 
 import com.facebook.stetho.Stetho;
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.ActivityMainBinding;
+import com.itus.u_money.mvp.model.AppDatabase;
+import com.itus.u_money.mvp.model.Transaction;
+import com.itus.u_money.mvp.model.dao.TransactionDAO;
 import com.itus.u_money.mvp.view.fragment.PlanFragment;
 import com.itus.u_money.mvp.view.fragment.ReportFragment;
 import com.itus.u_money.mvp.view.fragment.UserFragment;
 import com.itus.u_money.mvp.view.fragment.TransactionFragment;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
    private static final int ADD_TRANSACTION = 100;
+   private static final int ADD_BUDGET = 101;
+
    ActivityMainBinding binding;
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
    public void addTransaction(View view) {
       Intent intent = new Intent(this, AddTransactionActivity.class);
       startActivityForResult(intent, ADD_TRANSACTION);
+      binding.motionLayout.transitionToStart();
+   }
+
+   public void addBudget(View view) {
+      Intent intent = new Intent(this, AddBudgetActivity.class);
+      startActivityForResult(intent, ADD_BUDGET);
       binding.motionLayout.transitionToStart();
    }
 }

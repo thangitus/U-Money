@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.itus.u_money">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,14 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".mvp.view.activity.TransactionTypeActivity">
-
-        </activity>
+        <activity android:name=".mvp.view.activity.AddBudgetActivity"></activity>
+        <activity android:name=".mvp.view.activity.TransactionTypeActivity"></activity>
         <activity
             android:name=".mvp.view.activity.AddTransactionActivity"
-            android:parentActivityName=".mvp.view.activity.MainActivity">
-
-        </activity>
+            android:parentActivityName=".mvp.view.activity.MainActivity" />
         <activity android:name=".mvp.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
