@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import com.itus.u_money.R;
 
 public class PlanFragment extends Fragment {
+   public PlanFragment() {
+   }
    @Nullable
    @Override
    public View onCreateView(

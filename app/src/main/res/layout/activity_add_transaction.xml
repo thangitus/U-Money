@@ -81,24 +81,24 @@
                 android:onClick="selectGroup"
                 android:orientation="horizontal">
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/img_select_group"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:background="@color/colorTransparency"
+                    android:onClick="selectIcon"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_question" />
 
                 <TextView
-                    android:id="@+id/edt_group"
+                    android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
-                    android:backgroundTint="@color/colorGrayDarker"
-                    android:paddingVertical="8dp"
                     android:text="@string/select_group"
+                    android:textColor="@color/colorBlackLight"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -144,7 +144,6 @@
 
                 <TextView
                     android:id="@+id/edt_date"
-                    android:textColor="@color/colorBlackLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -153,6 +152,7 @@
                     android:clickable="false"
                     android:paddingVertical="8dp"
                     android:text="@string/today"
+                    android:textColor="@color/colorBlackLight"
                     android:textSize="20sp" />
             </LinearLayout>
 

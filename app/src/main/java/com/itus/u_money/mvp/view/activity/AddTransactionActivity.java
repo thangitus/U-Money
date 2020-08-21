@@ -32,6 +32,7 @@ import java.util.Objects;
 public class AddTransactionActivity extends AppCompatActivity {
    private static final int REQUEST_CODE_CHOOSE = 1245;
    private static final int REQUEST_CODE = 123;
+   private static final int REQUEST_CODE_TYPE = 323;
    ActivityAddTransactionBinding binding;
 
    @Override
@@ -51,7 +52,11 @@ public class AddTransactionActivity extends AppCompatActivity {
    public void saveTransaction(View view) {
 
    }
-   public void selectGroup(View view) {}
+   public void selectGroup(View view) {
+      Intent intent = new Intent(this, TransactionTypeActivity.class);
+      intent.putExtra("type", "AddTransaction");
+      startActivityForResult(intent, REQUEST_CODE_TYPE);
+   }
    public void selectDate(View view) {
       final Calendar myCalendar = Calendar.getInstance();
       int day = myCalendar.get(Calendar.DAY_OF_MONTH);
@@ -125,4 +130,5 @@ public class AddTransactionActivity extends AppCompatActivity {
          }
       }
    }
+   public void selectIcon(View view) {}
 }
