@@ -24,6 +24,9 @@ import java.util.List;
 public class PlanFragment extends Fragment {
    private FragmentPlanBinding binding;
 
+   public PlanFragment() {
+   }
+
    @Nullable
    @Override
    public View onCreateView(

@@ -5,12 +5,26 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class TransactionType {
-    @PrimaryKey
-    public int id;
+   @PrimaryKey
+   public int id;
 
-    public String name;
+   public String name;
 
-    public int transactionGroupId;
+   public int transactionGroupId;
 
-    public String iconPath;
+   public enum GROUP_TYPE {
+      Income, Outgoing, Loan, Borrow
+   }
+   public TransactionType(String name, int iconId) {
+      this.name = name;
+      this.iconId = iconId;
+   }
+   public int iconId;
+
+   public int getId() {
+      return id;
+   }
+   public String getName() {
+      return name;
+   }
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d46a0312eb56b40441cb5bc72640babd",
+    "identityHash": "b4d76e1024c81877b8cd341bf64d98c6",
     "entities": [
       {
         "tableName": "Transaction",
@@ -74,7 +74,7 @@
       },
       {
         "tableName": "TransactionType",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `transactionGroupId` INTEGER NOT NULL, `iconPath` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `transactionGroupId` INTEGER NOT NULL, `iconId` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -95,10 +95,10 @@
             "notNull": true
           },
           {
-            "fieldPath": "iconPath",
-            "columnName": "iconPath",
-            "affinity": "TEXT",
-            "notNull": false
+            "fieldPath": "iconId",
+            "columnName": "iconId",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -366,7 +366,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd46a0312eb56b40441cb5bc72640babd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b4d76e1024c81877b8cd341bf64d98c6')"
     ]
   }
 }
