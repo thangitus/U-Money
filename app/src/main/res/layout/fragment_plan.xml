@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itus.u_money.mvp.view.activity.PlansActivity">
+    tools:context="com.itus.u_money.mvp.view.fragment.PlanFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
