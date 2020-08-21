@@ -11,4 +11,13 @@
     <string name="today">Hôm nay</string>
     <string name="select_event">Chọn sự kiện</string>
     <string name="select_img">Chọn ảnh</string>
+    <string name="planning">Lập kế hoạch</string>
+    <string name="budget">Ngân sách</string>
+    <string name="budget_description">Tạo ngân sách cho từng nhóm giao dịch, hoặc chung cho toàn bộ giao dịch</string>
+    <string name="event">Sự kiện</string>
+    <string name="event_description">Tạo sự kiện trong ứng dụng để theo dõi việc chi tiêu trong một sự kiện có thực nào đó, ví dụ như đi du lịch cuối tuần</string>
+    <string name="bill">Hóa đơn</string>
+    <string name="bill_description">Theo dõi các hóa đơn định kì sẽ được gửi đến như điện, nước, thuê nhà, internet, ...</string>
+    <string name="recurring_transaction">Giao dịch định kì</string>
+    <string name="recurring_transaction_description">Các giao dịch định kì xảy ra trong tương lai sẽ được tự động thêm</string>
 </resources>

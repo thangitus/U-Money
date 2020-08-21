@@ -14,9 +14,7 @@
         tools:targetApi="q">
         <activity
             android:name=".mvp.view.activity.AddTransactionActivity"
-            android:parentActivityName=".mvp.view.activity.MainActivity">
-
-        </activity>
+            android:parentActivityName=".mvp.view.activity.MainActivity" />
         <activity android:name=".mvp.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

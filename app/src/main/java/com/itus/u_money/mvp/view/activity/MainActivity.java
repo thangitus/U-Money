@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
 
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.inspector.elements.android.ActivityTracker;
@@ -21,10 +22,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.ActivityMainBinding;
+import com.itus.u_money.mvp.model.AppDatabase;
+import com.itus.u_money.mvp.model.Transaction;
+import com.itus.u_money.mvp.model.dao.TransactionDAO;
 import com.itus.u_money.mvp.view.fragment.PlanFragment;
 import com.itus.u_money.mvp.view.fragment.ReportFragment;
 import com.itus.u_money.mvp.view.fragment.UserFragment;
 import com.itus.u_money.mvp.view.fragment.WalletFragment;
+
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
    private static final int ADD_TRANSACTION = 100;
