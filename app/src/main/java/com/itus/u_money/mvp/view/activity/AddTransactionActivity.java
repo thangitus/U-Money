@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -25,7 +27,9 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -53,9 +57,38 @@ public class AddTransactionActivity extends AppCompatActivity {
 
    }
    public void selectGroup(View view) {
-      Intent intent = new Intent(this, TransactionTypeActivity.class);
-      intent.putExtra("type", "AddTransaction");
-      startActivityForResult(intent, REQUEST_CODE_TYPE);
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setTitle("Chọn nhóm");
+      List<String> option = initData();
+      CharSequence[] cs = option.toArray(new CharSequence[option.size()]);
+      builder.setItems(cs, (dialogInterface, i) -> {
+         binding.edtName.setText(option.get(i));
+         binding.imgSelectGroup.setImageResource(R.drawable.icon_50_svg);
+      });
+      AlertDialog dialog = builder.create();
+      dialog.show();
+   }
+   private List<String> initData() {
+      List<String> res = new ArrayList<>();
+      res.add("Thu nợ");
+      res.add("Trả nợ");
+      res.add("Cho vay");
+      res.add("Trả nợ");
+
+      res.add("Ăn uống");
+      res.add("Hóa đơn & Tiện ích");
+      res.add("Di chuyển");
+      res.add("Mua sắm");
+      res.add("Giải trí");
+      res.add("Du lịch");
+      res.add("Sức khỏe");
+      res.add("Gia đình");
+
+      res.add("Tiền lãi");
+      res.add("Lương");
+      res.add("Bán đồ");
+
+      return res;
    }
    public void selectDate(View view) {
       final Calendar myCalendar = Calendar.getInstance();
