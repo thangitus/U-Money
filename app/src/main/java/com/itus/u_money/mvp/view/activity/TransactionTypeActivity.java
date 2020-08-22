@@ -38,6 +38,7 @@ public class TransactionTypeActivity extends AppCompatActivity {
       initUI();
       initActionBar();
    }
+
    private void initActionBar() {
       setSupportActionBar(binding.toolbar);
       Objects.requireNonNull(getSupportActionBar())
@@ -62,7 +63,7 @@ public class TransactionTypeActivity extends AppCompatActivity {
          dataInCome = intDataIncome();
          adapter.addFrag(TypeFragment.newInstance(dataInCome, indexSelected), "Khoản thu");
       }
-      binding.viewpager.setOffscreenPageLimit(2);
+//      binding.viewpager.setOffscreenPageLimit(2);
       binding.viewpager.setAdapter(adapter);
 
    }
