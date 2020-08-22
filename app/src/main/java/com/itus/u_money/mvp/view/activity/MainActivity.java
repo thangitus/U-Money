@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                fragment = TransactionFragment.getInstance();
                break;
             case R.id.navigation_report:
-               fragment = new ReportFragment();
+               fragment = ReportFragment.getInstance();
                break;
             case R.id.navigation_plan:
                fragment = new PlanFragment();
