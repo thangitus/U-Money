@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,10 +29,11 @@ import java.util.Objects;
 
 public class ChooseTypeActivity extends AppCompatActivity {
 
+    public static final String CHOOSING_TYPE = "CHOOSING_TYPE";
+    public static final String ADD_TRANSACTION = "ADD_TRANSACTION";
+
     private ActivityScreenSlideBinding binding;
-    private String type = "AddTransaction";
-    private TransactionType.GROUP_TYPE groupType;
-    private int indexSelected;
+    private String currentChoosingType;
     private int tab_number = 0;
 
     @Override
@@ -44,7 +44,11 @@ public class ChooseTypeActivity extends AppCompatActivity {
 
         initActionBar();
 
-        if (type.equalsIgnoreCase("AddTransaction")) {
+        Intent intent = getIntent();
+        currentChoosingType = intent.getStringExtra(CHOOSING_TYPE);
+
+        assert currentChoosingType != null;
+        if (currentChoosingType.equalsIgnoreCase(ADD_TRANSACTION)) {
             tab_number = 3;
         } else {
             tab_number = 2;
@@ -53,40 +57,30 @@ public class ChooseTypeActivity extends AppCompatActivity {
         SectionPagerAdapter pagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.viewPager.setAdapter(pagerAdapter);
 
-//        Intent intent = getIntent();
-//        type = intent.getStringExtra("type");
-//        groupType = (TransactionType.GROUP_TYPE) intent.getSerializableExtra("groupType");
-//        indexSelected = intent.getIntExtra("selected", -1);
-
         binding.tabs.setupWithViewPager(binding.viewPager);
         binding.toolbar.setTitle("Chọn nhóm");
-
-
     }
 
     private void initActionBar() {
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar())
                 .setDisplayHomeAsUpEnabled(true);
-        binding.toolbar.setNavigationOnClickListener(view -> {
-            finish();
-        });
+        binding.toolbar.setNavigationOnClickListener(view -> finish());
     }
 
     public static class PlaceHolderFragment extends Fragment implements RecyclerViewListener {
 
-        private FragmentScreenSlideBinding binding;
+        private static final String GROUP_INDEX = "GROUP_INDEX";
 
-        private static final String GROUP_KEY = "group_key";
-
-        private static final String TYPE_SELECTED = "type_selected";
+        private static final String TYPE_SELECTED = "TYPE_SELECTED";
 
         private PlaceHolderFragment() {}
 
-        public static PlaceHolderFragment newInstance(int groupIndex) {
+        public static PlaceHolderFragment newInstance(int groupIndex, String choosingType) {
             PlaceHolderFragment fragment = new PlaceHolderFragment();
             Bundle args = new Bundle();
-            args.putInt(GROUP_KEY, groupIndex);
+            args.putInt(GROUP_INDEX, groupIndex);
+            args.putString(CHOOSING_TYPE, choosingType);
             fragment.setArguments(args);
             return fragment;
         }
@@ -94,18 +88,18 @@ public class ChooseTypeActivity extends AppCompatActivity {
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            binding = FragmentScreenSlideBinding.inflate(inflater);
+            FragmentScreenSlideBinding binding = FragmentScreenSlideBinding.inflate(inflater);
             List<TransactionType> transactionTypes = new ArrayList<>();
-
-            switch (getArguments().getInt(GROUP_KEY)) {
+            assert getArguments() != null;
+            switch (getArguments().getInt(GROUP_INDEX)) {
                 case 0:
-                    transactionTypes = initDataIncome();
+                    transactionTypes = initDataLoan(Objects.requireNonNull(getArguments().getString(CHOOSING_TYPE)));
                     break;
                 case 1:
-                    transactionTypes = initDataLoan();
+                    transactionTypes = initDataOutgoing(Objects.requireNonNull(getArguments().getString(CHOOSING_TYPE)));
                     break;
                 case 2:
-                    transactionTypes = initDataOutgoing();
+                    transactionTypes = initDataIncome();
                     break;
                 default:
                     break;
@@ -127,14 +121,23 @@ public class ChooseTypeActivity extends AppCompatActivity {
             transactionTypes.add(new TransactionType("Được tặng", R.drawable.icon_1_svg));
             return transactionTypes;
         }
-        private List<TransactionType> initDataLoan() {
+        private List<TransactionType> initDataLoan(String choosingType) {
             List<TransactionType> transactionTypes = new ArrayList<>();
             transactionTypes.add(new TransactionType("Cho vay", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Trả nợ", R.drawable.icon_1_svg));
+
+            if (choosingType.equalsIgnoreCase(ADD_TRANSACTION)) {
+                transactionTypes.add(new TransactionType("Đi vay", R.drawable.icon_1_svg));
+                transactionTypes.add(new TransactionType("Thu nợ", R.drawable.icon_1_svg));
+            }
+
             return transactionTypes;
         }
-        private List<TransactionType> initDataOutgoing() {
+        private List<TransactionType> initDataOutgoing(String choosingType) {
             List<TransactionType> transactionTypes = new ArrayList<>();
+            if (!choosingType.equalsIgnoreCase(ADD_TRANSACTION))
+                transactionTypes.add(new TransactionType("Tất cả các khoản", R.drawable.icon_1_svg));
+
             transactionTypes.add(new TransactionType("Ăn uống", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Giải trí", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Mua sắm", R.drawable.icon_1_svg));
@@ -142,6 +145,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
             transactionTypes.add(new TransactionType("Sức khỏe", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Gia đình", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Khác", R.drawable.icon_1_svg));
+
             return transactionTypes;
         }
 
@@ -149,7 +153,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
         public void onItemClick(TransactionType transactionType) {
             Intent intent = new Intent();
             intent.putExtra(TYPE_SELECTED, transactionType);
-            getActivity().setResult(RESULT_OK);
+            Objects.requireNonNull(getActivity()).setResult(RESULT_OK);
         }
     }
 
@@ -162,7 +166,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            return PlaceHolderFragment.newInstance(position);
+            return PlaceHolderFragment.newInstance(position, currentChoosingType);
         }
 
         @Override
@@ -175,7 +179,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    if (type.equalsIgnoreCase("AddTransaction")) {
+                    if (currentChoosingType.equalsIgnoreCase(ADD_TRANSACTION)) {
                         return "Đi vay & Cho vay";
                     } else {
                         return "Cho vay";

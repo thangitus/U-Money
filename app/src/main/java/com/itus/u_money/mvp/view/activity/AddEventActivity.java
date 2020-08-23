@@ -41,7 +41,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     public void pickIcon(View view) {
         Intent intent = new Intent(this, ChooseTypeActivity.class);
-//        intent.putExtra("type", "AddTransaction");
+        intent.putExtra(ChooseTypeActivity.CHOOSING_TYPE, ChooseTypeActivity.ADD_TRANSACTION);
         startActivityForResult(intent, 45);
     }
 
