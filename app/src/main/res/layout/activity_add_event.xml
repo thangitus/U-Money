@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itus.u_money.mvp.view.activity.AddBudgetActivity">
+    tools:context="com.itus.u_money.mvp.view.activity.AddEventActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -93,6 +93,8 @@
                     android:layout_marginBottom="4dp">
 
                     <ImageView
+                        android:id="@+id/icon"
+                        android:onClick="pickIcon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_question"

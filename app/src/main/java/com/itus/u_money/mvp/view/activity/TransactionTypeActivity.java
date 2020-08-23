@@ -74,7 +74,6 @@ public class TransactionTypeActivity extends AppCompatActivity {
       transactionTypes.add(new TransactionType("Lương", R.drawable.icon_2_svg));
       transactionTypes.add(new TransactionType("Bán đồ", R.drawable.icon_1_svg));
       transactionTypes.add(new TransactionType("Được tặng", R.drawable.icon_1_svg));
-
       return transactionTypes;
    }
    private List<TransactionType> initDataLoan() {

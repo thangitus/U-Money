@@ -55,13 +55,12 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.MyViewHoler> {
       public void bind(TransactionType transactionType) {
          binding.icon.setImageResource(transactionType.iconId);
          binding.textGroupName.setText(transactionType.name);
-//         binding.executePendingBindings();
          binding.getRoot()
                 .setOnClickListener(this);
       }
       @Override
       public void onClick(View view) {
-         listener.onItemClick(getLayoutPosition());
+         listener.onItemClick(data.get(getLayoutPosition()));
       }
    }
 }
