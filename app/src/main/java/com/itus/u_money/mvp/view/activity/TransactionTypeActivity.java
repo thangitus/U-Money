@@ -38,6 +38,7 @@ public class TransactionTypeActivity extends AppCompatActivity {
       initUI();
       initActionBar();
    }
+
    private void initActionBar() {
       setSupportActionBar(binding.toolbar);
       Objects.requireNonNull(getSupportActionBar())
@@ -62,7 +63,7 @@ public class TransactionTypeActivity extends AppCompatActivity {
          dataInCome = intDataIncome();
          adapter.addFrag(TypeFragment.newInstance(dataInCome, indexSelected), "Khoản thu");
       }
-      binding.viewpager.setOffscreenPageLimit(2);
+//      binding.viewpager.setOffscreenPageLimit(2);
       binding.viewpager.setAdapter(adapter);
 
    }
@@ -73,7 +74,6 @@ public class TransactionTypeActivity extends AppCompatActivity {
       transactionTypes.add(new TransactionType("Lương", R.drawable.icon_2_svg));
       transactionTypes.add(new TransactionType("Bán đồ", R.drawable.icon_1_svg));
       transactionTypes.add(new TransactionType("Được tặng", R.drawable.icon_1_svg));
-
       return transactionTypes;
    }
    private List<TransactionType> initDataLoan() {

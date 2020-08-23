@@ -55,8 +55,9 @@ public class TypeFragment extends Fragment implements RecyclerViewListener {
       recyclerView.addItemDecoration(new SpacingItemDecoration(16));
    }
 
+
    @Override
-   public void onItemClick(int pos) {
+   public void onItemClick(TransactionType transactionType) {
 
    }
 }

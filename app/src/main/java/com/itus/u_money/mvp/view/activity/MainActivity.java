@@ -25,6 +25,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
    private static final int ADD_TRANSACTION = 100;
    private static final int ADD_BUDGET = 101;
+   private static final int ADD_EVENT = 102;
 
    ActivityMainBinding binding;
    @Override
@@ -85,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
    public void addBudget(View view) {
       Intent intent = new Intent(this, AddBudgetActivity.class);
       startActivityForResult(intent, ADD_BUDGET);
+      binding.motionLayout.transitionToStart();
+   }
+
+   public void addEvent(View view) {
+      Intent intent = new Intent(this, AddEventActivity.class);
+      startActivityForResult(intent, ADD_EVENT);
       binding.motionLayout.transitionToStart();
    }
 }
