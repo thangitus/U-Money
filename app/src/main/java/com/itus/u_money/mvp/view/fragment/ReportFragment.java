@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -18,6 +19,8 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.itus.u_money.R;
+import com.itus.u_money.mvp.contract.TransactionContract;
+import com.itus.u_money.mvp.presenter.TransactionPresenter;
 import com.itus.u_money.mvp.view.model.DataBarChart;
 import com.itus.u_money.mvp.view.model.Formatter;
 
@@ -35,7 +38,9 @@ public class ReportFragment extends Fragment {
       return mInstance;
    }
    public ReportFragment() {
+
    }
+
    @Nullable
    @Override
    public View onCreateView(
@@ -64,9 +69,10 @@ public class ReportFragment extends Fragment {
       chart.setPinchZoom(true);
 
       chart.setDrawGridBackground(false);
+      chart.animateY(500, Easing.EaseInOutQuad);
 
       XAxis xAxis = chart.getXAxis();
-      xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+      xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
       xAxis.setDrawGridLines(false);
       xAxis.setDrawAxisLine(false);
       xAxis.setTextColor(Color.LTGRAY);
@@ -91,11 +97,12 @@ public class ReportFragment extends Fragment {
 
       // THIS IS THE ORIGINAL DATA YOU WANT TO PLOT
       final List<DataBarChart> data = new ArrayList<>();
+      data.add(new DataBarChart(0f, 238.5f, "12-30"));
       data.add(new DataBarChart(0f, -224.1f, "12-29"));
-      data.add(new DataBarChart(1f, 238.5f, "12-30"));
-      data.add(new DataBarChart(2f, 1280.1f, "12-31"));
-      data.add(new DataBarChart(3f, -442.3f, "01-01"));
-      data.add(new DataBarChart(4f, -2280.1f, "01-02"));
+      data.add(new DataBarChart(1f, 1280.1f, "12-31"));
+      data.add(new DataBarChart(1f, -442.3f, "01-01"));
+      data.add(new DataBarChart(2f, -2280.1f, "01-02"));
+      data.add(new DataBarChart(2f, 2280.1f, "01-02"));
 
       xAxis.setValueFormatter(new ValueFormatter() {
          @Override

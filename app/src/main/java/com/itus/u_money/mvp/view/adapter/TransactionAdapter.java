@@ -1,6 +1,5 @@
 package com.itus.u_money.mvp.view.adapter;
 
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
