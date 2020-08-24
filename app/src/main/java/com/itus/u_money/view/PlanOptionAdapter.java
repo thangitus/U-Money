@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,14 @@ public class PlanOptionAdapter extends RecyclerView.Adapter<PlanOptionAdapter.Vi
             icon = itemView.findViewById(R.id.icon);
             title = itemView.findViewById(R.id.title);
             subTitle = itemView.findViewById(R.id.subtitle);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.card_press));
+                    }
+                }
+            );
         }
     }
 }
