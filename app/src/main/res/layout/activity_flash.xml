@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itus.u_money.mvp.view.activity.FlashActivity">
+    tools:context=".view.activity.FlashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"

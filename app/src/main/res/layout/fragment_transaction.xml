@@ -7,7 +7,7 @@
 
         <variable
             name="presenter"
-            type="com.itus.u_money.mvp.contract.TransactionContract.Presenter" />
+            type="com.itus.u_money.contract.TransactionContract.Presenter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
