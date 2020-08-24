@@ -105,8 +105,6 @@ public class ChooseTypeActivity extends AppCompatActivity {
             TypeAdapter typeAdapter = new TypeAdapter(getContext(), this, transactionTypes);
             binding.recyclerview.setAdapter(typeAdapter);
             binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-            binding.recyclerview.addItemDecoration(new SpacingItemDecoration(6));
-
             return binding.getRoot();
         }
 
