@@ -49,9 +49,9 @@ public class ChooseTypeActivity extends AppCompatActivity {
 
         assert currentChoosingType != null;
         if (currentChoosingType.equalsIgnoreCase(ADD_TRANSACTION)) {
-            tab_number = 3;
-        } else {
             tab_number = 2;
+        } else {
+            tab_number = 1;
         }
 
         SectionPagerAdapter pagerAdapter = new SectionPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -93,12 +93,9 @@ public class ChooseTypeActivity extends AppCompatActivity {
             assert getArguments() != null;
             switch (getArguments().getInt(GROUP_INDEX)) {
                 case 0:
-                    transactionTypes = initDataLoan(Objects.requireNonNull(getArguments().getString(CHOOSING_TYPE)));
-                    break;
-                case 1:
                     transactionTypes = initDataOutgoing(Objects.requireNonNull(getArguments().getString(CHOOSING_TYPE)));
                     break;
-                case 2:
+                case 1:
                     transactionTypes = initDataIncome();
                     break;
                 default:
@@ -119,20 +116,11 @@ public class ChooseTypeActivity extends AppCompatActivity {
             transactionTypes.add(new TransactionType("Lương", R.drawable.icon_2_svg));
             transactionTypes.add(new TransactionType("Bán đồ", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Được tặng", R.drawable.icon_1_svg));
+            transactionTypes.add(new TransactionType("Đi vay", R.drawable.icon_1_svg));
+            transactionTypes.add(new TransactionType("Thu nợ", R.drawable.icon_1_svg));
             return transactionTypes;
         }
-        private List<TransactionType> initDataLoan(String choosingType) {
-            List<TransactionType> transactionTypes = new ArrayList<>();
-            transactionTypes.add(new TransactionType("Cho vay", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Trả nợ", R.drawable.icon_1_svg));
 
-            if (choosingType.equalsIgnoreCase(ADD_TRANSACTION)) {
-                transactionTypes.add(new TransactionType("Đi vay", R.drawable.icon_1_svg));
-                transactionTypes.add(new TransactionType("Thu nợ", R.drawable.icon_1_svg));
-            }
-
-            return transactionTypes;
-        }
         private List<TransactionType> initDataOutgoing(String choosingType) {
             List<TransactionType> transactionTypes = new ArrayList<>();
             if (!choosingType.equalsIgnoreCase(ADD_TRANSACTION))
@@ -144,6 +132,8 @@ public class ChooseTypeActivity extends AppCompatActivity {
             transactionTypes.add(new TransactionType("Du lịch", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Sức khỏe", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Gia đình", R.drawable.icon_1_svg));
+            transactionTypes.add(new TransactionType("Cho vay", R.drawable.icon_1_svg));
+            transactionTypes.add(new TransactionType("Trả nợ", R.drawable.icon_1_svg));
             transactionTypes.add(new TransactionType("Khác", R.drawable.icon_1_svg));
 
             return transactionTypes;
@@ -179,14 +169,8 @@ public class ChooseTypeActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    if (currentChoosingType.equalsIgnoreCase(ADD_TRANSACTION)) {
-                        return "Đi vay & Cho vay";
-                    } else {
-                        return "Cho vay";
-                    }
-                case 1:
                     return "Khoản chi";
-                case 2:
+                case 1:
                     return "Khoản thu";
                 default:
                     return null;
