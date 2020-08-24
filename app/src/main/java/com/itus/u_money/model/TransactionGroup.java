@@ -9,4 +9,9 @@ public class TransactionGroup {
     public int id;
 
     public String name;
+
+    public TransactionGroup(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

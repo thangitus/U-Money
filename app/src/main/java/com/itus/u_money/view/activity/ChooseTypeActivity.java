@@ -102,7 +102,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
                     break;
             }
 
-            TypeAdapter typeAdapter = new TypeAdapter(this, transactionTypes);
+            TypeAdapter typeAdapter = new TypeAdapter(getContext(), this, transactionTypes);
             binding.recyclerview.setAdapter(typeAdapter);
             binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
             binding.recyclerview.addItemDecoration(new SpacingItemDecoration(6));
@@ -112,29 +112,29 @@ public class ChooseTypeActivity extends AppCompatActivity {
 
         private List<TransactionType> initDataIncome() {
             List<TransactionType> transactionTypes = new ArrayList<>();
-            transactionTypes.add(new TransactionType("Tiền lãi", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Lương", R.drawable.icon_2_svg));
-            transactionTypes.add(new TransactionType("Bán đồ", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Được tặng", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Đi vay", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Thu nợ", R.drawable.icon_1_svg));
+            transactionTypes.add(new TransactionType(1,0,"Tiền lãi", 1, 1));
+            transactionTypes.add(new TransactionType(2, 0, "Lương", 1, 1));
+            transactionTypes.add(new TransactionType(3,0,"Bán đồ", 1, 1));
+            transactionTypes.add(new TransactionType(4, 0,"Được tặng", 1, 1));
+            transactionTypes.add(new TransactionType(5, 0,"Đi vay", 1, 1));
+            transactionTypes.add(new TransactionType(6, 0,"Thu nợ", 1, 1));
             return transactionTypes;
         }
 
         private List<TransactionType> initDataOutgoing(String choosingType) {
             List<TransactionType> transactionTypes = new ArrayList<>();
             if (!choosingType.equalsIgnoreCase(ADD_TRANSACTION))
-                transactionTypes.add(new TransactionType("Tất cả các khoản", R.drawable.icon_1_svg));
+                transactionTypes.add(new TransactionType(7,0,"Tất cả các khoản", 2, 1));
 
-            transactionTypes.add(new TransactionType("Ăn uống", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Giải trí", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Mua sắm", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Du lịch", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Sức khỏe", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Gia đình", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Cho vay", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Trả nợ", R.drawable.icon_1_svg));
-            transactionTypes.add(new TransactionType("Khác", R.drawable.icon_1_svg));
+            transactionTypes.add(new TransactionType(8,0,"Ăn uống", 2, 1));
+            transactionTypes.add(new TransactionType(9,0,"Giải trí", 2, 1));
+            transactionTypes.add(new TransactionType(10,0,"Mua sắm", 2, 1));
+            transactionTypes.add(new TransactionType(11,0,"Du lịch", 2, 1));
+            transactionTypes.add(new TransactionType(12,0,"Sức khỏe", 2, 1));
+            transactionTypes.add(new TransactionType(13,0,"Gia đình", 2, 1));
+            transactionTypes.add(new TransactionType(14,0,"Cho vay", 2, 1));
+            transactionTypes.add(new TransactionType(15,0,"Trả nợ", 2, 1));
+            transactionTypes.add(new TransactionType(16,0,"Khác", 2, 1));
 
             return transactionTypes;
         }

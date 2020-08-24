@@ -26,6 +26,7 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.FragmentTransactionBinding;
 import com.itus.u_money.contract.TransactionContract;
+import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.TransactionType;
 import com.itus.u_money.presenter.TransactionPresenter;
 import com.itus.u_money.view.adapter.SummaryAdapter;
@@ -99,10 +100,8 @@ public class TransactionFragment extends Fragment implements TransactionContract
       binding.recyclerviewSummary.setAdapter(adapter);
    }
    private List<TransactionType> simulatorSummary() {
-      List<TransactionType> data = new ArrayList<>();
-      TransactionType transactionType = new TransactionType();
-      transactionType.iconId = R.drawable.icon_25_svg;
-      transactionType.total = 100214;
+      List<TransactionType> data =  new ArrayList<>();
+      TransactionType transactionType = new TransactionType(1, 1000, "Ăn uống", 1, 1);
       data.add(transactionType);
       data.add(transactionType);
       data.add(transactionType);
