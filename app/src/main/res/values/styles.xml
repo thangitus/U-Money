@@ -8,6 +8,11 @@
         <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
+    <style name="FlashTheme" parent="AppTheme">
+        <item name="android:navigationBarColor">#EAEAEA</item>
+
+    </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorBlue</item>
 

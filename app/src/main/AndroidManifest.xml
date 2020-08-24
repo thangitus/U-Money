@@ -15,7 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".mvp.view.activity.ChooseTypeActivity"></activity>
+        <activity
+            android:name=".mvp.view.activity.FlashActivity"
+            android:theme="@style/FlashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".mvp.view.activity.ChooseTypeActivity" />
         <activity android:name=".mvp.view.activity.AddEventActivity" />
         <activity android:name=".mvp.view.activity.AddBudgetActivity" />
         <activity android:name=".mvp.view.activity.TransactionTypeActivity" />
@@ -23,11 +32,7 @@
             android:name=".mvp.view.activity.AddTransactionActivity"
             android:parentActivityName=".mvp.view.activity.MainActivity" />
         <activity android:name=".mvp.view.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
