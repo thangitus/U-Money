@@ -175,6 +175,7 @@ public class TransactionFragment extends Fragment implements TransactionContract
 
    @Override
    public void updateChartData(List<TransactionType> transactionTypes, List<Icon> icons, boolean animate) {
+      binding.recyclerviewListTransaction.removeAllViews();
       summaryAdapter.setData(transactionTypes);
       summaryAdapter.notifyDataSetChanged();
 
@@ -193,6 +194,7 @@ public class TransactionFragment extends Fragment implements TransactionContract
       for (Icon icon : icons)
          colors.add(Color.parseColor(icon.backgroundColor));
 
+      dataSet.setColors(colors);
       PieData data = new PieData(dataSet);
       data.setValueFormatter(new PercentFormatter(chart));
       data.setValueTextSize(11f);

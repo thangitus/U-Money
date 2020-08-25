@@ -138,7 +138,10 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
       calendar.setTime(date);
       switch (curReportBy) {
          case Day:
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) - 1);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
             break;
          case Month:
             calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -148,10 +151,6 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
             calendar.set(Calendar.MONTH, 1);
 
       }
-      if (curReportBy == REPORT_BY.Day)
-         return calendar.getTime()
-                        .getTime() - 1;
-
       return calendar.getTime()
                      .getTime();
    }
@@ -160,7 +159,10 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
       calendar.setTime(date);
       switch (curReportBy) {
          case Day:
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
+            calendar.set(Calendar.HOUR_OF_DAY, 24);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 59);
+            calendar.set(Calendar.MILLISECOND, 99);
             break;
          case Month:
             calendar.set(Calendar.DAY_OF_MONTH, 30);

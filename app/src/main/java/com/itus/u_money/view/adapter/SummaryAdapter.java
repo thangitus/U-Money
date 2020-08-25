@@ -1,13 +1,16 @@
 package com.itus.u_money.view.adapter;
 
 import android.annotation.SuppressLint;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.itus.u_money.App;
 import com.itus.u_money.databinding.ItemSummaryBinding;
+import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.TransactionType;
 
 import java.util.List;
@@ -40,6 +43,8 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
    }
    public class MyViewHoler extends RecyclerView.ViewHolder {
       ItemSummaryBinding binding;
+      Handler handler = new Handler();
+
       public MyViewHoler(@NonNull ItemSummaryBinding itemView) {
          super(itemView.getRoot());
          this.binding = itemView;
@@ -47,7 +52,14 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
       @SuppressLint("SetTextI18n")
       public void bind(TransactionType transactionType) {
-         //         binding.iconSummary.setImageResource(transactionType.iconId);
+         AppDatabase.executorService.execute(() -> {
+            int resourceId = AppDatabase.getDatabase(App.getContext())
+                                        .iconDAO()
+                                        .getResourceIdFromIdInt(transactionType.iconId);
+            handler.post(() -> {
+               binding.iconSummary.setImageResource(resourceId);
+            });
+         });
          binding.textTotalCost.setText(transactionType.total + " VND");
       }
    }
