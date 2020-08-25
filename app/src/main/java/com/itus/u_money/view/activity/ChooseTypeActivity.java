@@ -72,7 +72,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
 
         private static final String GROUP_INDEX = "GROUP_INDEX";
 
-        private static final String TYPE_SELECTED = "TYPE_SELECTED";
+        public static final String TYPE_SELECTED = "TYPE_SELECTED";
 
         private PlaceHolderFragment() {}
 

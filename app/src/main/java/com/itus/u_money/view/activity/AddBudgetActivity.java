@@ -1,5 +1,6 @@
 package com.itus.u_money.view.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.ActivityAddBudgetBinding;
+import com.itus.u_money.model.TransactionType;
 
 public class AddBudgetActivity extends AppCompatActivity {
     ActivityAddBudgetBinding binding;
@@ -40,5 +42,15 @@ public class AddBudgetActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChooseTypeActivity.class);
         intent.putExtra(ChooseTypeActivity.CHOOSING_TYPE, ChooseTypeActivity.ADD_TRANSACTION);
         startActivityForResult(intent, 45);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 45 && resultCode == RESULT_OK) {
+            TransactionType transactionType = (TransactionType) data.getSerializableExtra(ChooseTypeActivity.PlaceHolderFragment.TYPE_SELECTED);
+            binding.txtType.setText(transactionType.name);
+        }
     }
 }
