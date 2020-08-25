@@ -16,6 +16,7 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
    protected REPORT_BY curReportBy = REPORT_BY.Month;
    protected Date date = Calendar.getInstance()
                                  .getTime();
+   protected boolean animateChart = true;
 
    public BaseCardPresenter(BaseCardContract.View view) {
       this.view = view;
@@ -23,6 +24,7 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
 
    @Override
    public void onUpClick() {
+      animateChart = true;
       if (curReportInt == 3)
          curReportInt = 1;
       else
@@ -34,6 +36,7 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
 
    @Override
    public void onDownClick() {
+      animateChart = true;
       if (curReportInt == 1)
          curReportInt = 3;
       else
@@ -52,6 +55,7 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
    @Override
    public void onNextClick() {
       updateDate(1);
+      animateChart = false;
       view.updateDate(getCurrentFormatDay().format(date));
       view.upDateChart(true);
    }
@@ -59,16 +63,19 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
    @Override
    public void onPrevClick() {
       updateDate(-1);
+      animateChart = false;
       view.updateDate(getCurrentFormatDay().format(date));
       view.upDateChart(false);
    }
 
    @Override
    public void onMoveCurDateClick() {
+      animateChart = false;
       Date date = Calendar.getInstance()
                           .getTime();
       int compare = this.date.compareTo(date);
 
+      view.updateDate(getCurrentFormatDay().format(date));
       if (compare > 0)
          view.upDateChart(false);
       else
@@ -125,5 +132,45 @@ abstract class BaseCardPresenter implements BaseCardContract.Presenter {
             myFormat = "yyyy";
       }
       return new SimpleDateFormat(myFormat, Locale.US);
+   }
+   protected Long getStartDay() {
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      switch (curReportBy) {
+         case Day:
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) - 1);
+            break;
+         case Month:
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            break;
+         default:
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            calendar.set(Calendar.MONTH, 1);
+
+      }
+      if (curReportBy == REPORT_BY.Day)
+         return calendar.getTime()
+                        .getTime() - 1;
+
+      return calendar.getTime()
+                     .getTime();
+   }
+   protected Long getEndDay() {
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      switch (curReportBy) {
+         case Day:
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
+            break;
+         case Month:
+            calendar.set(Calendar.DAY_OF_MONTH, 30);
+            break;
+         default:
+            calendar.set(Calendar.DAY_OF_MONTH, 12);
+            calendar.set(Calendar.MONTH, 31);
+
+      }
+      return calendar.getTime()
+                     .getTime();
    }
 }

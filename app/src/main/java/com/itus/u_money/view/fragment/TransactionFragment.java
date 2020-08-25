@@ -26,7 +26,6 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.FragmentTransactionBinding;
 import com.itus.u_money.contract.TransactionContract;
-import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.Icon;
 import com.itus.u_money.model.Transaction;
 import com.itus.u_money.model.TransactionType;
@@ -44,7 +43,7 @@ public class TransactionFragment extends Fragment implements TransactionContract
    FragmentTransactionBinding binding;
    private TransactionContract.Presenter presenter;
    private TransactionAdapter transactionAdapter;
-
+   private SummaryAdapter summaryAdapter;
    public static TransactionFragment getInstance() {
       if (mInstance == null)
          mInstance = new TransactionFragment();
@@ -70,12 +69,11 @@ public class TransactionFragment extends Fragment implements TransactionContract
       initChart();
       initRecyclerView(binding.recyclerviewListTransaction);
       presenter.onViewCreated();
-      setData(5, 10);
    }
    @Override
    public void onResume() {
       super.onResume();
-      presenter.getData();
+      presenter.getListTransaction();
    }
 
    private void initRecyclerView(RecyclerView recyclerView) {
@@ -112,74 +110,9 @@ public class TransactionFragment extends Fragment implements TransactionContract
       chart.setEntryLabelColor(Color.WHITE);
       chart.setEntryLabelTextSize(12f);
 
-      List<TransactionType> dataSimulator = simulatorSummary();
-      SummaryAdapter adapter = new SummaryAdapter(dataSimulator);
+      summaryAdapter = new SummaryAdapter();
       binding.recyclerviewSummary.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-      binding.recyclerviewSummary.setAdapter(adapter);
-   }
-   private List<TransactionType> simulatorSummary() {
-      List<TransactionType> data = new ArrayList<>();
-      TransactionType transactionType = new TransactionType(1, 1000, "Ăn uống", 1, 1);
-      data.add(transactionType);
-      data.add(transactionType);
-      data.add(transactionType);
-      data.add(transactionType);
-      data.add(transactionType);
-      return data;
-   }
-
-   private void setData(int count, float range) {
-      ArrayList<PieEntry> entries = new ArrayList<>();
-
-      // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-      // the chart.
-      for (int i = 0; i < count; i++) {
-         entries.add(new PieEntry((float) ((Math.random() * range) + range / 5), "Test", 8));
-      }
-
-      PieDataSet dataSet = new PieDataSet(entries, "Election Results");
-
-      dataSet.setDrawIcons(false);
-
-      dataSet.setSliceSpace(3f);
-      dataSet.setIconsOffset(new MPPointF(0, 40));
-      dataSet.setSelectionShift(5f);
-
-      // add a lot of colors
-
-      ArrayList<Integer> colors = new ArrayList<>();
-
-      for (int c : ColorTemplate.VORDIPLOM_COLORS)
-         colors.add(c);
-
-      for (int c : ColorTemplate.JOYFUL_COLORS)
-         colors.add(c);
-
-      for (int c : ColorTemplate.COLORFUL_COLORS)
-         colors.add(c);
-
-      for (int c : ColorTemplate.LIBERTY_COLORS)
-         colors.add(c);
-      chart.setDrawCenterText(false);
-
-      for (int c : ColorTemplate.PASTEL_COLORS)
-         colors.add(c);
-
-      colors.add(ColorTemplate.getHoloBlue());
-
-      dataSet.setColors(colors);
-      //dataSet.setSelectionShift(0f);
-
-      PieData data = new PieData(dataSet);
-      data.setValueFormatter(new PercentFormatter(chart));
-      data.setValueTextSize(11f);
-      data.setValueTextColor(Color.WHITE);
-      chart.setData(data);
-      //      chart.animateY(500, Easing.EaseInOutQuad);
-
-      // undo all highlights
-      chart.highlightValues(null);
-      chart.invalidate();
+      binding.recyclerviewSummary.setAdapter(summaryAdapter);
    }
 
    @Override
@@ -217,7 +150,6 @@ public class TransactionFragment extends Fragment implements TransactionContract
          }
          @Override
          public void onAnimationEnd(Animation animation) {
-            setData(5, 3);
             chart.clearAnimation();
             chart.startAnimation(animationIn);
          }
@@ -239,5 +171,36 @@ public class TransactionFragment extends Fragment implements TransactionContract
       transactionAdapter.setTransactionTypeList(transactionTypes);
       transactionAdapter.setIconList(icons);
       transactionAdapter.notifyDataSetChanged();
+   }
+
+   @Override
+   public void updateChartData(List<TransactionType> transactionTypes, List<Icon> icons, boolean animate) {
+      summaryAdapter.setData(transactionTypes);
+      summaryAdapter.notifyDataSetChanged();
+
+      ArrayList<PieEntry> entries = new ArrayList<>();
+      for (int i = 0; i < transactionTypes.size(); i++) {
+         TransactionType transactionType = transactionTypes.get(i);
+         entries.add(new PieEntry(transactionType.total, transactionType.name));
+      }
+
+      PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+      dataSet.setDrawIcons(false);
+      dataSet.setSliceSpace(3f);
+      dataSet.setIconsOffset(new MPPointF(0, 40));
+      dataSet.setSelectionShift(5f);
+      ArrayList<Integer> colors = new ArrayList<>();
+      for (Icon icon : icons)
+         colors.add(Color.parseColor(icon.backgroundColor));
+
+      PieData data = new PieData(dataSet);
+      data.setValueFormatter(new PercentFormatter(chart));
+      data.setValueTextSize(11f);
+      data.setValueTextColor(Color.WHITE);
+      chart.setData(data);
+      if (animate)
+         chart.animateY(500, Easing.EaseInOutQuad);
+      chart.highlightValues(null);
+      chart.invalidate();
    }
 }

@@ -12,18 +12,21 @@ import java.util.List;
 
 @Dao
 public interface TransactionDAO {
-    @Query("SELECT * FROM `Transaction`")
-    List<Transaction> getAll();
+   @Query("SELECT * FROM `Transaction`")
+   List<Transaction> getAll();
 
-    @Query("SELECT * FROM `Transaction` WHERE id IN (:transactionIds)")
-    List<Transaction> loadAllByIds(int[] transactionIds);
+   @Query("SELECT * FROM `Transaction` WHERE id IN (:transactionIds)")
+   List<Transaction> loadAllByIds(int[] transactionIds);
 
-    @Insert
-    void insertAll(Transaction... transactions);
+   @Query("SELECT * FROM `Transaction` WHERE date BETWEEN :startDate AND :endDate")
+   List<Transaction> getByDate(Long startDate, Long endDate);
 
-    @Update
-    void updateAll(Transaction... transactions);
+   @Insert
+   void insertAll(Transaction... transactions);
 
-    @Delete
-    void deleteAll(Transaction... transactions);
+   @Update
+   void updateAll(Transaction... transactions);
+
+   @Delete
+   void deleteAll(Transaction... transactions);
 }
