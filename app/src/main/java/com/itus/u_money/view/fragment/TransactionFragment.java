@@ -180,7 +180,6 @@ public class TransactionFragment extends Fragment implements TransactionContract
    @Override
    public void updateDate(String text) {
       binding.tvDate.setText(text);
-
    }
 
    @Override

@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -19,15 +22,20 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.itus.u_money.R;
+import com.itus.u_money.contract.ReportContract;
+import com.itus.u_money.databinding.FragmentReportBinding;
+import com.itus.u_money.presenter.ReportPresenter;
 import com.itus.u_money.view.model.DataBarChart;
 import com.itus.u_money.view.model.Formatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportFragment extends Fragment {
+public class ReportFragment extends Fragment implements ReportContract.View {
    private static ReportFragment mInstance = null;
    private BarChart chart;
+   private ReportContract.Presenter presenter;
+   FragmentReportBinding binding;
 
    public static ReportFragment getInstance() {
       if (mInstance == null)
@@ -35,7 +43,7 @@ public class ReportFragment extends Fragment {
       return mInstance;
    }
    public ReportFragment() {
-
+      presenter = new ReportPresenter(this);
    }
 
    @Nullable
@@ -43,13 +51,16 @@ public class ReportFragment extends Fragment {
    public View onCreateView(
            @NonNull LayoutInflater inflater,
            @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      return inflater.inflate(R.layout.fragment_report, container, false);
+      binding = DataBindingUtil.inflate(inflater, R.layout.fragment_report, container, false);
+      binding.setPresenter(presenter);
+      return binding.getRoot();
    }
 
    @Override
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
       initChart();
+      presenter.onViewCreated();
    }
    private void initChart() {
       chart = getActivity().findViewById(R.id.bar_chart);
@@ -156,4 +167,51 @@ public class ReportFragment extends Fragment {
       }
    }
 
+   @Override
+   public void updateReportBy(String text, boolean increase) {
+      binding.textReportBy.setText(text);
+      Animation animation;
+      if (increase)
+         animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_in);
+      else
+         animation = AnimationUtils.loadAnimation(getContext(), R.anim.down_in);
+      animation.reset();
+      binding.textReportBy.clearAnimation();
+      binding.textReportBy.startAnimation(animation);
+   }
+   @Override
+   public void updateDate(String text) {
+      binding.tvDate.setText(text);
+   }
+   @Override
+   public void upDateChart(boolean increase) {
+      Animation animationOut, animationIn;
+      if (increase) {
+         animationOut = AnimationUtils.loadAnimation(getContext(), R.anim.right_out);
+         animationIn = AnimationUtils.loadAnimation(getContext(), R.anim.left_in);
+      } else {
+         animationOut = AnimationUtils.loadAnimation(getContext(), R.anim.left_out);
+         animationIn = AnimationUtils.loadAnimation(getContext(), R.anim.right_in);
+      }
+      animationOut.setAnimationListener(new Animation.AnimationListener() {
+         @Override
+         public void onAnimationStart(Animation animation) {
+
+         }
+         @Override
+         public void onAnimationEnd(Animation animation) {
+            chart.clearAnimation();
+            chart.startAnimation(animationIn);
+         }
+         @Override
+         public void onAnimationRepeat(Animation animation) {
+
+         }
+      });
+      chart.startAnimation(animationOut);
+   }
+   @Override
+   public void animateChart() {
+      chart.animate();
+   }
 }
