@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "74c06ea037bcc37c8e341a83bf13cc65",
+    "identityHash": "6001c19025a310956d40c5501d41f10c",
     "entities": [
       {
         "tableName": "Transaction",
@@ -200,18 +200,24 @@
       },
       {
         "tableName": "Icon",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`path` TEXT NOT NULL, PRIMARY KEY(`path`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `resourceId` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
-            "fieldPath": "path",
-            "columnName": "path",
-            "affinity": "TEXT",
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "resourceId",
+            "columnName": "resourceId",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "path"
+            "id"
           ],
           "autoGenerate": false
         },
@@ -372,7 +378,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '74c06ea037bcc37c8e341a83bf13cc65')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6001c19025a310956d40c5501d41f10c')"
     ]
   }
 }

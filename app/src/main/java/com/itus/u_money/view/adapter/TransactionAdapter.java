@@ -1,5 +1,6 @@
 package com.itus.u_money.view.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,18 +9,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.itus.u_money.databinding.ItemTransactionBinding;
 import com.itus.u_money.model.Transaction;
+import com.itus.u_money.model.TransactionType;
 
 import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
-   List<Transaction> data;
+   List<Transaction> transactionList;
+   List<TransactionType> transactionTypeList;
 
-   public void setData(List<Transaction> data) {
-      this.data = data;
+   public void setTransactionTypeList(List<TransactionType> transactionTypeList) {
+      this.transactionTypeList = transactionTypeList;
+   }
+   public void setTransactionList(List<Transaction> transactionList) {
+      this.transactionList = transactionList;
    }
    public TransactionAdapter(List<Transaction> data) {
-      this.data = data;
+      this.transactionList = data;
    }
+
    @NonNull
    @Override
    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,8 +36,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
    }
    @Override
    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-      Transaction transaction = data.get(position);
-      holder.bind(transaction);
+      Transaction transaction = transactionList.get(position);
+      TransactionType transactionType = transactionTypeList.get(position);
+      holder.bind(transaction, transactionType);
    }
    @Override
    public int getItemCount() {
@@ -44,7 +52,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
          super(binding.getRoot());
          this.binding = binding;
       }
-      public void bind(Transaction transaction) {
+      public void bind(Transaction transaction, TransactionType transactionType) {
+         binding.iconTransaction.setImageResource(transactionType.iconId);
+         binding.textViewName.setText(transactionType.name);
+         binding.textViewNote.setText(transaction.note);
+         binding.textViewPrice.setText(transaction.amount + " VND");
       }
    }
 }

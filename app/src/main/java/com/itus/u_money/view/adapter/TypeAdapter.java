@@ -2,8 +2,6 @@ package com.itus.u_money.view.adapter;
 
 import android.content.Context;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +21,12 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.MyViewHoler> {
    Context context;
    RecyclerViewListener listener;
    List<TransactionType> data;
-
-   public TypeAdapter(Context context, RecyclerViewListener listener, List<TransactionType> transactionTypes) {
+   public void setData(List<TransactionType> data) {
+      this.data = data;
+   }
+   public TypeAdapter(Context context, RecyclerViewListener listener) {
       this.context = context;
       this.listener = listener;
-      this.data = transactionTypes;
    }
 
    @NonNull
@@ -46,11 +45,12 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.MyViewHoler> {
 
    @Override
    public int getItemCount() {
+      if (data == null)
+         return 0;
       return data.size();
    }
 
-   class MyViewHoler extends RecyclerView.ViewHolder implements View
-           .OnClickListener {
+   class MyViewHoler extends RecyclerView.ViewHolder implements View.OnClickListener {
       ItemTypeBinding binding;
       Handler handler = new Handler();
 
@@ -61,8 +61,10 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.MyViewHoler> {
 
       public void bind(TransactionType transactionType) {
          AppDatabase.executorService.execute(() -> {
-            int resourceId = AppDatabase.getDatabase(context).iconDAO().getResourceIdFromId(transactionType.iconId);
-            handler.post(()-> {
+            int resourceId = AppDatabase.getDatabase(context)
+                                        .iconDAO()
+                                        .getResourceIdFromId(transactionType.iconId);
+            handler.post(() -> {
                binding.icon.setImageResource(resourceId);
             });
          });

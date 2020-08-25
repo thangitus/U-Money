@@ -1,5 +1,6 @@
 package com.itus.u_money.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,30 +12,35 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.itus.u_money.R;
+import com.itus.u_money.contract.TypeContract;
+import com.itus.u_money.databinding.FragmentScreenSlideBinding;
 import com.itus.u_money.model.TransactionType;
+import com.itus.u_money.presenter.TypePresenter;
 import com.itus.u_money.view.adapter.RecyclerViewListener;
 import com.itus.u_money.view.adapter.TypeAdapter;
-import com.itus.u_money.view.utils.SpacingItemDecoration;
 
 import java.util.List;
+import java.util.Objects;
 
-public class TypeFragment extends Fragment implements RecyclerViewListener {
+public class TypeFragment extends Fragment implements RecyclerViewListener, TypeContract.View {
+   public static final String CHOOSING_TYPE = "CHOOSING_TYPE";
+   public static final String ADD_TRANSACTION = "ADD_TRANSACTION";
+   private static final String GROUP_INDEX = "GROUP_INDEX";
+   public static final String TYPE_SELECTED = "TYPE_SELECTED";
+   TypeAdapter typeAdapter;
+   FragmentScreenSlideBinding binding;
+   TypeContract.Presenter presenter;
+   private TypeFragment() {
+      presenter = new TypePresenter(this);
+   }
 
-   List<TransactionType> transactionTypes;
-   int selected;
-   RecyclerView recyclerView;
-   public static TypeFragment newInstance(List<TransactionType> transactionTypes, int selected) {
+   public static TypeFragment newInstance(int groupIndex, String choosingType) {
       TypeFragment fragment = new TypeFragment();
-      fragment.setData(transactionTypes, selected);
+      Bundle args = new Bundle();
+      args.putInt(GROUP_INDEX, groupIndex);
+      args.putString(CHOOSING_TYPE, choosingType);
+      fragment.setArguments(args);
       return fragment;
-   }
-
-   public void setData(List<TransactionType> transactionTypes, int selected) {
-      this.transactionTypes = transactionTypes;
-      this.selected = selected;
-   }
-   public TypeFragment() {
    }
 
    @Nullable
@@ -42,22 +48,30 @@ public class TypeFragment extends Fragment implements RecyclerViewListener {
    public View onCreateView(
            @NonNull LayoutInflater inflater,
            @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      return inflater.inflate(R.layout.fragment_group, container, false);
-   }
+      binding = FragmentScreenSlideBinding.inflate(inflater);
+      presenter.setType(getArguments().getString(CHOOSING_TYPE));
+      assert getArguments() != null;
+      presenter.getData(getArguments().getInt(GROUP_INDEX));
 
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-      super.onViewCreated(view, savedInstanceState);
-      recyclerView = getActivity().findViewById(R.id.recyclerview);
-      TypeAdapter adapter = new TypeAdapter(getContext(), this, transactionTypes);
-      recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-      recyclerView.setAdapter(adapter);
-      recyclerView.addItemDecoration(new SpacingItemDecoration(16));
-   }
+      typeAdapter = new TypeAdapter(getContext(), this);
+      binding.recyclerview.setAdapter(typeAdapter);
+      binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
+      return binding.getRoot();
+   }
 
    @Override
    public void onItemClick(TransactionType transactionType) {
+      Intent intent = new Intent();
+      intent.putExtra(TYPE_SELECTED, transactionType);
+      Objects.requireNonNull(getActivity())
+             .setResult(getActivity().RESULT_OK);
+      getActivity().finish();
+   }
 
+   @Override
+   public void showData(List<TransactionType> transactionTypeList) {
+      typeAdapter.setData(transactionTypeList);
+      typeAdapter.notifyDataSetChanged();
    }
 }

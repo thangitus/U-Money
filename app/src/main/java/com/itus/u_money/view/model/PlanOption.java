@@ -1,4 +1,4 @@
-package com.itus.u_money.view;
+package com.itus.u_money.view.model;
 
 public class PlanOption {
     private int icon;

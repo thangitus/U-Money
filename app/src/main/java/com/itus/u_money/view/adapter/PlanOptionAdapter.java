@@ -1,4 +1,4 @@
-package com.itus.u_money.view;
+package com.itus.u_money.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itus.u_money.R;
+import com.itus.u_money.view.model.PlanOption;
 
 import java.util.List;
 

@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.itus.u_money.databinding.FragmentPlanBinding;
 
 import com.itus.u_money.R;
-import com.itus.u_money.view.PlanOption;
-import com.itus.u_money.view.PlanOptionAdapter;
+import com.itus.u_money.view.model.PlanOption;
+import com.itus.u_money.view.adapter.PlanOptionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

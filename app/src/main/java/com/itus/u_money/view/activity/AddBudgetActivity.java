@@ -13,6 +13,7 @@ import java.util.Objects;
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.ActivityAddBudgetBinding;
 import com.itus.u_money.model.TransactionType;
+import com.itus.u_money.view.fragment.TypeFragment;
 
 public class AddBudgetActivity extends AppCompatActivity {
     ActivityAddBudgetBinding binding;
@@ -49,7 +50,7 @@ public class AddBudgetActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 45 && resultCode == RESULT_OK) {
-            TransactionType transactionType = (TransactionType) data.getSerializableExtra(ChooseTypeActivity.PlaceHolderFragment.TYPE_SELECTED);
+            TransactionType transactionType = (TransactionType) data.getSerializableExtra(TypeFragment.TYPE_SELECTED);
             binding.txtType.setText(transactionType.name);
         }
     }
