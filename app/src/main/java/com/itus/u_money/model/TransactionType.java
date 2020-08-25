@@ -18,9 +18,9 @@ public class TransactionType implements Serializable {
 
    public int iconId;
 
-   public TransactionType(int id, long total, String name, int transactionGroupId, int iconId) {
+   public TransactionType(int id,  String name, int transactionGroupId, int iconId) {
       this.id = id;
-      this.total = total;
+      this.total = 0;
       this.name = name;
       this.transactionGroupId = transactionGroupId;
       this.iconId = iconId;

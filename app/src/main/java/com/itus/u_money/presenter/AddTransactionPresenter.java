@@ -7,8 +7,10 @@ import com.itus.u_money.App;
 import com.itus.u_money.contract.AddTransactionContract;
 import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.Transaction;
+import com.itus.u_money.model.TransactionType;
 import com.itus.u_money.model.dao.IconDAO;
 import com.itus.u_money.model.dao.TransactionDAO;
+import com.itus.u_money.model.dao.TransactionTypeDAO;
 
 public class AddTransactionPresenter implements AddTransactionContract.Presenter, Observer<Integer> {
    private final AddTransactionContract.View view;
@@ -20,10 +22,15 @@ public class AddTransactionPresenter implements AddTransactionContract.Presenter
 
    @Override
    public void saveTransaction(Transaction transaction) {
-      TransactionDAO transactionDAO = AppDatabase.getDatabase(App.getContext())
-                                                 .transactionDAO();
+      AppDatabase database = AppDatabase.getDatabase(App.getContext());
+      TransactionDAO transactionDAO = database.transactionDAO();
+      TransactionTypeDAO transactionTypeDAO = database.transactionTypeDAO();
+
       AppDatabase.executorService.execute(() -> {
          transactionDAO.insertAll(transaction);
+         TransactionType transactionType = transactionTypeDAO.getById(transaction.transactionTypeId);
+         transactionType.total += transaction.amount;
+         transactionTypeDAO.update(transactionType);
       });
    }
 

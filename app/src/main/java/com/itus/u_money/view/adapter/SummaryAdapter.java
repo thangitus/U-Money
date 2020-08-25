@@ -15,10 +15,9 @@ import java.util.List;
 public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHoler> {
    List<TransactionType> data;
 
-   public SummaryAdapter(List<TransactionType> data) {
-      this.data=data;
+   public void setData(List<TransactionType> data) {
+      this.data = data;
    }
-
    @NonNull
    @Override
    public MyViewHoler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,6 +34,8 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
    @Override
    public int getItemCount() {
+      if (data == null)
+         return 0;
       return data.size();
    }
    public class MyViewHoler extends RecyclerView.ViewHolder {
@@ -46,7 +47,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
       @SuppressLint("SetTextI18n")
       public void bind(TransactionType transactionType) {
-//         binding.iconSummary.setImageResource(transactionType.iconId);
+         //         binding.iconSummary.setImageResource(transactionType.iconId);
          binding.textTotalCost.setText(transactionType.total + " VND");
       }
    }

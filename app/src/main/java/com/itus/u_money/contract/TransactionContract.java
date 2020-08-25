@@ -9,10 +9,12 @@ import java.util.List;
 public interface TransactionContract {
    interface View extends BaseCardContract.View {
       void showTransactionList(List<Transaction> transactionList, List<TransactionType> transactionTypes, List<Icon> icons);
+      void updateChartData(List<TransactionType> transactionTypes, List<Icon> icons, boolean animate);
    }
 
    interface Presenter extends BaseCardContract.Presenter {
-      void getData();
+      void getListTransaction();
+
    }
 
 }
