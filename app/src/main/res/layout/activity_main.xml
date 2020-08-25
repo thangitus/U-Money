@@ -75,6 +75,7 @@
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/add_bill"
+        android:onClick="addBill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_bill" />
