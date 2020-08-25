@@ -1,6 +1,6 @@
 package com.itus.u_money.contract;
 
-public interface TransactionContract {
+public interface ReportContract extends BaseCardContract {
    interface View extends BaseCardContract.View {
 
    }
@@ -8,5 +8,4 @@ public interface TransactionContract {
    interface Presenter extends BaseCardContract.Presenter {
 
    }
-
 }
