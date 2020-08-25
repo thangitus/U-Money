@@ -63,7 +63,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.MyViewHoler> {
          AppDatabase.executorService.execute(() -> {
             int resourceId = AppDatabase.getDatabase(context)
                                         .iconDAO()
-                                        .getResourceIdFromId(transactionType.iconId);
+                                        .getResourceIdFromIdInt(transactionType.iconId);
             handler.post(() -> {
                binding.icon.setImageResource(resourceId);
             });

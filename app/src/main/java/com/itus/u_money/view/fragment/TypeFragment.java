@@ -30,16 +30,22 @@ public class TypeFragment extends Fragment implements RecyclerViewListener, Type
    TypeAdapter typeAdapter;
    FragmentScreenSlideBinding binding;
    TypeContract.Presenter presenter;
+   private Intent intent;
+
+   public void setIntent(Intent intent) {
+      this.intent = intent;
+   }
    private TypeFragment() {
       presenter = new TypePresenter(this);
    }
 
-   public static TypeFragment newInstance(int groupIndex, String choosingType) {
+   public static TypeFragment newInstance(int groupIndex, String choosingType, Intent intent) {
       TypeFragment fragment = new TypeFragment();
       Bundle args = new Bundle();
       args.putInt(GROUP_INDEX, groupIndex);
       args.putString(CHOOSING_TYPE, choosingType);
       fragment.setArguments(args);
+      fragment.setIntent(intent);
       return fragment;
    }
 
@@ -62,10 +68,9 @@ public class TypeFragment extends Fragment implements RecyclerViewListener, Type
 
    @Override
    public void onItemClick(TransactionType transactionType) {
-      Intent intent = new Intent();
       intent.putExtra(TYPE_SELECTED, transactionType);
       Objects.requireNonNull(getActivity())
-             .setResult(getActivity().RESULT_OK);
+             .setResult(getActivity().RESULT_OK,intent);
       getActivity().finish();
    }
 

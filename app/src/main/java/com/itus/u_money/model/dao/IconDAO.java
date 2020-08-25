@@ -1,5 +1,6 @@
 package com.itus.u_money.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,23 +14,21 @@ import java.util.List;
 
 @Dao
 public interface IconDAO {
-    @Query("SELECT * FROM `Icon`")
-    List<Icon> getAll();
+   @Query("SELECT * FROM `Icon`")
+   List<Icon> getAll();
 
-//    @Query("SELECT * FROM `Icon` WHERE path IN (:iconPaths)")
-//    List<Icon> loadAllByPaths(String[] iconPaths);
+   @Query("SELECT resourceId FROM `Icon` WHERE id = :id")
+   LiveData<Integer> getResourceIdFromId(int id);
 
-    @Query("SELECT resourceId FROM `Icon` WHERE id = :id")
-    int getResourceIdFromId(int id);
+   @Query("SELECT resourceId FROM `Icon` WHERE id = :id")
+  int getResourceIdFromIdInt(int id);
 
-    @Insert(
-            onConflict = OnConflictStrategy.REPLACE
-    )
-    void insert(Icon icon);
+   @Insert(onConflict = OnConflictStrategy.REPLACE)
+   void insert(Icon icon);
 
-    @Update
-    void updateAll(Icon... icons);
+   @Update
+   void updateAll(Icon... icons);
 
-    @Delete
-    void deleteAll(Icon... icons);
+   @Delete
+   void deleteAll(Icon... icons);
 }

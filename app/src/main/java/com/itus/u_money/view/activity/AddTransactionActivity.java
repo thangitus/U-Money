@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -17,7 +16,12 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.itus.u_money.R;
+import com.itus.u_money.contract.AddTransactionContract;
 import com.itus.u_money.databinding.ActivityAddTransactionBinding;
+import com.itus.u_money.model.Transaction;
+import com.itus.u_money.model.TransactionType;
+import com.itus.u_money.presenter.AddTransactionPresenter;
+import com.itus.u_money.view.fragment.TypeFragment;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -25,22 +29,26 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class AddTransactionActivity extends AppCompatActivity {
+public class AddTransactionActivity extends AppCompatActivity implements AddTransactionContract.View {
    private static final int REQUEST_CODE_CHOOSE = 1245;
    private static final int REQUEST_CODE = 123;
    private static final int REQUEST_CODE_TYPE = 323;
    ActivityAddTransactionBinding binding;
-
+   AddTransactionContract.Presenter presenter;
+   Transaction transaction;
+   Calendar myCalendar;
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       binding = ActivityAddTransactionBinding.inflate(getLayoutInflater());
+      presenter = new AddTransactionPresenter(this);
+      transaction = new Transaction();
+      myCalendar = Calendar.getInstance();
+
       setContentView(binding.getRoot());
       initActionBar();
    }
@@ -51,45 +59,14 @@ public class AddTransactionActivity extends AppCompatActivity {
              .setDisplayHomeAsUpEnabled(true);
       getSupportActionBar().setDisplayShowTitleEnabled(false);
    }
-   public void saveTransaction(View view) {
 
-   }
    public void selectGroup(View view) {
-      AlertDialog.Builder builder = new AlertDialog.Builder(this);
-      builder.setTitle("Chọn nhóm");
-      List<String> option = initData();
-      CharSequence[] cs = option.toArray(new CharSequence[option.size()]);
-      builder.setItems(cs, (dialogInterface, i) -> {
-         binding.edtName.setText(option.get(i));
-         binding.imgSelectGroup.setImageResource(R.drawable.icon_50_svg);
-      });
-      AlertDialog dialog = builder.create();
-      dialog.show();
+      Intent intent = new Intent(this, ChooseTypeActivity.class);
+      intent.putExtra(ChooseTypeActivity.CHOOSING_TYPE, ChooseTypeActivity.ADD_TRANSACTION);
+      startActivityForResult(intent, REQUEST_CODE_TYPE);
    }
-   private List<String> initData() {
-      List<String> res = new ArrayList<>();
-      res.add("Thu nợ");
-      res.add("Trả nợ");
-      res.add("Cho vay");
-      res.add("Trả nợ");
 
-      res.add("Ăn uống");
-      res.add("Hóa đơn & Tiện ích");
-      res.add("Di chuyển");
-      res.add("Mua sắm");
-      res.add("Giải trí");
-      res.add("Du lịch");
-      res.add("Sức khỏe");
-      res.add("Gia đình");
-
-      res.add("Tiền lãi");
-      res.add("Lương");
-      res.add("Bán đồ");
-
-      return res;
-   }
    public void selectDate(View view) {
-      final Calendar myCalendar = Calendar.getInstance();
       int day = myCalendar.get(Calendar.DAY_OF_MONTH);
       int month = myCalendar.get(Calendar.MONTH);
       int year = myCalendar.get(Calendar.YEAR);
@@ -97,29 +74,47 @@ public class AddTransactionActivity extends AppCompatActivity {
          myCalendar.set(Calendar.YEAR, i);
          myCalendar.set(Calendar.MONTH, i1);
          myCalendar.set(Calendar.DAY_OF_MONTH, i2);
-         String myFormat = "dd/MM/yyyy";
-         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-         binding.edtDate.setText(sdf.format(myCalendar.getTime()));
-         binding.edtDate.invalidate();
-         binding.edtDate.requestLayout();
+         showDateSelected(myCalendar);
       }, year, month, day);
       datePickerDialog.show();
+   }
+   private void showDateSelected(Calendar myCalendar) {
+      String myFormat = "dd/MM/yyyy";
+      SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+      binding.edtDate.setText(sdf.format(myCalendar.getTime()));
+      binding.edtDate.invalidate();
+      binding.edtDate.requestLayout();
    }
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
       super.onActivityResult(requestCode, resultCode, data);
-      if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CHOOSE) {
-         String fileName = data.getStringExtra("FilePath");
-         binding.textSelectImg.setVisibility(View.GONE);
-         binding.cardImgSelected.setVisibility(View.VISIBLE);
-         binding.imageSelected.setVisibility(View.VISIBLE);
-         Glide.with(this)
-              .load(new File(fileName))
-              .skipMemoryCache(true)
-              .diskCacheStrategy(DiskCacheStrategy.NONE)
-              .into(binding.imageSelected);
-      }
+      if (resultCode == RESULT_OK)
+         if (requestCode == REQUEST_CODE_CHOOSE)
+            showImgSelected(data);
+         else if (requestCode == REQUEST_CODE_TYPE)
+            handleChooseTypeResult(data);
+
+   }
+   private void handleChooseTypeResult(Intent data) {
+      TransactionType transactionType = (TransactionType) data.getSerializableExtra(TypeFragment.TYPE_SELECTED);
+      transaction.transactionTypeId = transactionType.id;
+      binding.textTypeName.setText(transactionType.name);
+      presenter.getResourceId(transactionType.iconId);
+   }
+
+   private void showImgSelected(@Nullable Intent data) {
+      String fileName = data.getStringExtra("FilePath");
+      binding.textSelectImg.setVisibility(View.GONE);
+      binding.cardImgSelected.setVisibility(View.VISIBLE);
+      binding.imageSelected.setVisibility(View.VISIBLE);
+      Glide.with(this)
+           .load(new File(fileName))
+           .skipMemoryCache(true)
+           .diskCacheStrategy(DiskCacheStrategy.NONE)
+           .into(binding.imageSelected);
+
+      transaction.imagePath = fileName;
    }
 
    public void selectEvent(View view) {}
@@ -161,5 +156,18 @@ public class AddTransactionActivity extends AppCompatActivity {
          }
       }
    }
-   public void selectIcon(View view) {}
+
+   @Override
+   public void showIconTransaction(int resourceId) {
+      binding.imgSelectGroup.setImageResource(resourceId);
+   }
+   public void onSaveClick(View view) {
+      transaction.date = myCalendar.getTime();
+      transaction.amount = Long.parseLong(binding.edtCost.getText()
+                                                         .toString());
+      transaction.note = binding.edtNote.getText()
+                                        .toString();
+      presenter.saveTransaction(transaction);
+      finish();
+   }
 }

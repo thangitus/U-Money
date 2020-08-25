@@ -23,7 +23,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
    private ActivityScreenSlideBinding binding;
    private String currentChoosingType;
    private int tab_number = 0;
-
+   Intent intent;
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
 
       initActionBar();
 
-      Intent intent = getIntent();
+      intent = getIntent();
       currentChoosingType = intent.getStringExtra(CHOOSING_TYPE);
 
       assert currentChoosingType != null;
@@ -56,8 +56,6 @@ public class ChooseTypeActivity extends AppCompatActivity {
       binding.toolbar.setNavigationOnClickListener(view -> finish());
    }
 
-
-
    public class SectionPagerAdapter extends FragmentPagerAdapter {
 
       public SectionPagerAdapter(@NonNull FragmentManager fm, int behavior) {
@@ -67,7 +65,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
       @NonNull
       @Override
       public Fragment getItem(int position) {
-         return TypeFragment.newInstance(position, currentChoosingType);
+         return TypeFragment.newInstance(position, currentChoosingType, intent);
       }
 
       @Override
