@@ -9,23 +9,22 @@ import java.io.Serializable;
 public class TransactionType implements Serializable {
    @PrimaryKey
    public int id;
+
    public long total;
 
    public String name;
-   public TransactionType() {
-   }
+
    public int transactionGroupId;
 
-   public TransactionType(String name, int iconId) {
+   public int iconId;
+
+   public TransactionType(int id, long total, String name, int transactionGroupId, int iconId) {
+      this.id = id;
+      this.total = total;
       this.name = name;
+      this.transactionGroupId = transactionGroupId;
       this.iconId = iconId;
    }
-
-   public enum GROUP_TYPE {
-      Income, Outgoing, Loan, Borrow
-   }
-
-   public int iconId;
 
    public int getId() {
       return id;

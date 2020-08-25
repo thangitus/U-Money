@@ -8,5 +8,12 @@ import androidx.room.PrimaryKey;
 public class Icon {
     @PrimaryKey
     @NonNull
-    public String path;
+    public int id;
+
+    public int resourceId;
+
+    public Icon(int id, int resourceId) {
+        this.id = id;
+        this.resourceId = resourceId;
+    }
 }

@@ -49,7 +49,7 @@ public class TypeFragment extends Fragment implements RecyclerViewListener {
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
       recyclerView = getActivity().findViewById(R.id.recyclerview);
-      TypeAdapter adapter = new TypeAdapter(this, transactionTypes);
+      TypeAdapter adapter = new TypeAdapter(getContext(), this, transactionTypes);
       recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
       recyclerView.setAdapter(adapter);
       recyclerView.addItemDecoration(new SpacingItemDecoration(16));

@@ -46,7 +46,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
       @SuppressLint("SetTextI18n")
       public void bind(TransactionType transactionType) {
-         binding.iconSummary.setImageResource(transactionType.iconId);
+//         binding.iconSummary.setImageResource(transactionType.iconId);
          binding.textTotalCost.setText(transactionType.total + " VND");
       }
    }

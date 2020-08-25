@@ -1,5 +1,6 @@
 package com.itus.u_money.view.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.ItemTypeBinding;
+import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.TransactionType;
 
 import java.util.List;
 
 public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.MyViewHoler> {
+   Context context;
    RecyclerViewListener listener;
    List<TransactionType> data;
 
-   public TypeAdapter(RecyclerViewListener listener, List<TransactionType> transactionTypes) {
+   public TypeAdapter(Context context, RecyclerViewListener listener, List<TransactionType> transactionTypes) {
+      this.context = context;
       this.listener = listener;
       this.data = transactionTypes;
    }
@@ -53,7 +57,9 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.MyViewHoler> {
       }
 
       public void bind(TransactionType transactionType) {
-         binding.icon.setImageResource(transactionType.iconId);
+         AppDatabase.executorService.execute(()-> {
+            binding.icon.setImageResource(AppDatabase.getDatabase(context).iconDAO().getResourceIdFromId(transactionType.iconId));
+         });
          binding.textGroupName.setText(transactionType.name);
          binding.getRoot()
                 .setOnClickListener(this);

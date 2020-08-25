@@ -28,7 +28,6 @@
         <activity android:name=".view.activity.ChooseTypeActivity" />
         <activity android:name=".view.activity.AddEventActivity" />
         <activity android:name=".view.activity.AddBudgetActivity" />
-        <activity android:name=".view.activity.TransactionTypeActivity" />
         <activity
             android:name=".view.activity.AddTransactionActivity"
             android:parentActivityName=".view.activity.MainActivity" />
