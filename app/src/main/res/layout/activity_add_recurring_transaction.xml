@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.activity.AddBillActivity">
+        tools:context=".view.activity.AddRecurringTransactionActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -51,7 +51,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Thêm hóa đơn"
+                    android:text="Thêm giao dịch định kì"
                     android:textColor="#525252"
                     android:textSize="20sp"
                     android:textStyle="bold"

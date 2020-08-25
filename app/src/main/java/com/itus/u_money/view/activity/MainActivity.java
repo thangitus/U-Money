@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
    private static final int ADD_BUDGET = 101;
    private static final int ADD_EVENT = 102;
    private static final int ADD_BILL = 103;
+   private static final int ADD_RECURRING_TRANSACTION = 104;
 
    ActivityMainBinding binding;
    @Override
@@ -93,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
    public void addBill(View view) {
       Intent intent = new Intent(this, AddBillActivity.class);
       startActivityForResult(intent, ADD_BILL);
+      binding.motionLayout.transitionToStart();
+   }
+   
+   public void addRecurringTransaction(View view) {
+      Intent intent = new Intent(this, AddRecurringTransactionActivity.class);
+      startActivityForResult(intent, ADD_RECURRING_TRANSACTION);
       binding.motionLayout.transitionToStart();
    }
 }
