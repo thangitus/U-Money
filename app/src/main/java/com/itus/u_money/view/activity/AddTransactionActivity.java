@@ -168,6 +168,7 @@ public class AddTransactionActivity extends AppCompatActivity implements AddTran
       transaction.note = binding.edtNote.getText()
                                         .toString();
       presenter.saveTransaction(transaction);
+
       finish();
    }
 }

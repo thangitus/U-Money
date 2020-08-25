@@ -22,7 +22,8 @@
             android:windowSoftInputMode="adjustResize">
 
         </activity>
-        <activity android:name=".view.activity.FlashActivity">
+        <activity android:name=".view.activity.FlashActivity"
+            android:theme="@style/FlashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

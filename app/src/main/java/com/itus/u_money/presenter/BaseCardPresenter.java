@@ -12,10 +12,10 @@ import java.util.Locale;
 abstract class BaseCardPresenter implements BaseCardContract.Presenter {
    private final BaseCardContract.View view;
 
-   int curReportInt = 2;
-   REPORT_BY curReportBy = REPORT_BY.Month;
-   Date date = Calendar.getInstance()
-                       .getTime();
+   protected int curReportInt = 2;
+   protected REPORT_BY curReportBy = REPORT_BY.Month;
+   protected Date date = Calendar.getInstance()
+                                 .getTime();
 
    public BaseCardPresenter(BaseCardContract.View view) {
       this.view = view;

@@ -6,14 +6,17 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Icon {
-    @PrimaryKey
-    @NonNull
-    public int id;
+   @PrimaryKey
+   @NonNull
+   public int id;
 
-    public int resourceId;
+   public int resourceId;
 
-    public Icon(int id, int resourceId) {
+   public String backgroundColor;
+    public Icon(int id, int resourceId, String backgroundColor) {
         this.id = id;
         this.resourceId = resourceId;
+        this.backgroundColor = backgroundColor;
     }
+
 }

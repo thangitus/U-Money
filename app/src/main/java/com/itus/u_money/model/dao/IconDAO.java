@@ -20,8 +20,8 @@ public interface IconDAO {
    @Query("SELECT resourceId FROM `Icon` WHERE id = :id")
    LiveData<Integer> getResourceIdFromId(int id);
 
-   @Query("SELECT resourceId FROM `Icon` WHERE id = :id")
-  int getResourceIdFromIdInt(int id);
+   @Query("SELECT * FROM `Icon` WHERE id = :id")
+   Icon getIconById(int id);
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
    void insert(Icon icon);
@@ -31,4 +31,7 @@ public interface IconDAO {
 
    @Delete
    void deleteAll(Icon... icons);
+
+   @Query("SELECT resourceId FROM `Icon` WHERE id = :iconId")
+   int getResourceIdFromIdInt(int iconId);
 }

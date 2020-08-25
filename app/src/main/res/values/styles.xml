@@ -10,11 +10,10 @@
 
     <style name="FlashTheme" parent="AppTheme">
         <item name="android:navigationBarColor">#EAEAEA</item>
-
+        <item name="android:statusBarColor">@color/colorWhite</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorBlue</item>
-
     </style>
 </resources>

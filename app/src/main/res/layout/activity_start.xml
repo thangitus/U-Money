@@ -87,7 +87,7 @@
                         android:layout_centerVertical="true"
                         android:hint="Số tiền hiện có"
                         android:inputType="numberDecimal"
-                        android:textColor="#3C91E6"
+                        android:textColor="@color/colorIncome"
                         android:textSize="24sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -107,7 +107,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:textColor="#E65555"
+                        android:textColor="@color/colorOutGoing"
                         android:textSize="24sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 

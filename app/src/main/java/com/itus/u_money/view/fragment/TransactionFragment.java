@@ -27,9 +27,13 @@ import com.itus.u_money.R;
 import com.itus.u_money.databinding.FragmentTransactionBinding;
 import com.itus.u_money.contract.TransactionContract;
 import com.itus.u_money.model.AppDatabase;
+import com.itus.u_money.model.Icon;
+import com.itus.u_money.model.Transaction;
 import com.itus.u_money.model.TransactionType;
 import com.itus.u_money.presenter.TransactionPresenter;
 import com.itus.u_money.view.adapter.SummaryAdapter;
+import com.itus.u_money.view.adapter.TransactionAdapter;
+import com.itus.u_money.view.utils.SpacingItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,7 @@ public class TransactionFragment extends Fragment implements TransactionContract
    private PieChart chart;
    FragmentTransactionBinding binding;
    private TransactionContract.Presenter presenter;
+   private TransactionAdapter transactionAdapter;
 
    public static TransactionFragment getInstance() {
       if (mInstance == null)
@@ -63,8 +68,21 @@ public class TransactionFragment extends Fragment implements TransactionContract
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
       initChart();
+      initRecyclerView(binding.recyclerviewListTransaction);
       presenter.onViewCreated();
       setData(5, 10);
+   }
+   @Override
+   public void onResume() {
+      super.onResume();
+      presenter.getData();
+   }
+
+   private void initRecyclerView(RecyclerView recyclerView) {
+      transactionAdapter = new TransactionAdapter();
+      recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+      recyclerView.setAdapter(transactionAdapter);
+      recyclerView.addItemDecoration(new SpacingItemDecoration(12));
    }
 
    void initChart() {
@@ -100,7 +118,7 @@ public class TransactionFragment extends Fragment implements TransactionContract
       binding.recyclerviewSummary.setAdapter(adapter);
    }
    private List<TransactionType> simulatorSummary() {
-      List<TransactionType> data =  new ArrayList<>();
+      List<TransactionType> data = new ArrayList<>();
       TransactionType transactionType = new TransactionType(1, 1000, "Ăn uống", 1, 1);
       data.add(transactionType);
       data.add(transactionType);
@@ -213,5 +231,13 @@ public class TransactionFragment extends Fragment implements TransactionContract
    @Override
    public void animateChart() {
       chart.animateY(500, Easing.EaseInOutQuad);
+   }
+
+   @Override
+   public void showTransactionList(List<Transaction> transactionList, List<TransactionType> transactionTypes, List<Icon> icons) {
+      transactionAdapter.setTransactionList(transactionList);
+      transactionAdapter.setTransactionTypeList(transactionTypes);
+      transactionAdapter.setIconList(icons);
+      transactionAdapter.notifyDataSetChanged();
    }
 }
