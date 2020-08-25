@@ -21,4 +21,7 @@
     <string name="recurring_transaction">Giao dịch định kì</string>
     <string name="recurring_transaction_description">Các giao dịch định kì xảy ra trong tương lai sẽ được tự động thêm</string>
     <string name="transaction_name">Tên giao dịch</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="init_value">0 VND</string>
+    <string name="next">Tiếp tục</string>
 </resources>

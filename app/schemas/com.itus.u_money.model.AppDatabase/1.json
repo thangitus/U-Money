@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6001c19025a310956d40c5501d41f10c",
+    "identityHash": "97fca3712ea32c46f6780ebea6b8f33a",
     "entities": [
       {
         "tableName": "Transaction",
@@ -144,7 +144,7 @@
       },
       {
         "tableName": "Budget",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `transactionTypeId` INTEGER NOT NULL, `startTime` INTEGER, `endTime` INTEGER, `amount` INTEGER NOT NULL, `usedAmount` INTEGER NOT NULL, `isRepeated` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `transactionTypeId` INTEGER NOT NULL, `startTime` INTEGER, `loopType` TEXT, `amount` INTEGER NOT NULL, `usedAmount` INTEGER NOT NULL, `isRepeated` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -165,9 +165,9 @@
             "notNull": false
           },
           {
-            "fieldPath": "endTime",
-            "columnName": "endTime",
-            "affinity": "INTEGER",
+            "fieldPath": "loopType",
+            "columnName": "loopType",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -378,7 +378,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6001c19025a310956d40c5501d41f10c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '97fca3712ea32c46f6780ebea6b8f33a')"
     ]
   }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.WindowManager;
 
@@ -25,7 +26,12 @@ public class FlashActivity extends AppCompatActivity implements FlashContract.Vi
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
       presenter = new FlashPresenter(this);
       animationView = findViewById(R.id.animation_view);
-      intent = new Intent(this, MainActivity.class);
+      SharedPreferences pref = getApplicationContext().getSharedPreferences("UMoney", 0); // 0 - for private mode
+      boolean isFirst = pref.getBoolean("IsFirst", true);
+      if (isFirst)
+         intent = new Intent(this, StartActivity.class);
+      else
+         intent = new Intent(this, MainActivity.class);
 
       animationView.addAnimatorListener(new Animator.AnimatorListener() {
          @Override
