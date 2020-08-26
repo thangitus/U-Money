@@ -23,6 +23,8 @@ public class Budget {
 
    public boolean isRepeated;
 
+   public Budget() {}
+
     public Budget(int transactionTypeId, Date startTime, String loopType, long amount, long usedAmount, boolean isRepeated) {
         this.transactionTypeId = transactionTypeId;
         this.startTime = startTime;

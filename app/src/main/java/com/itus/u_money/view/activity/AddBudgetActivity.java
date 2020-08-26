@@ -11,17 +11,24 @@ import android.view.animation.AnimationUtils;
 import java.util.Objects;
 
 import com.itus.u_money.R;
+import com.itus.u_money.contract.AddBudgetContract;
 import com.itus.u_money.databinding.ActivityAddBudgetBinding;
+import com.itus.u_money.model.Budget;
 import com.itus.u_money.model.TransactionType;
+import com.itus.u_money.presenter.AddBudgetPresenter;
 import com.itus.u_money.view.fragment.TypeFragment;
 
-public class AddBudgetActivity extends AppCompatActivity {
+public class AddBudgetActivity extends AppCompatActivity implements AddBudgetContract.View {
     ActivityAddBudgetBinding binding;
+    AddBudgetContract.Presenter presenter;
+    Budget budget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddBudgetBinding.inflate(getLayoutInflater());
+        budget = new Budget();
+        presenter = new AddBudgetPresenter(this);
         setContentView(binding.getRoot());
         initActionBar();
     }
@@ -51,7 +58,14 @@ public class AddBudgetActivity extends AppCompatActivity {
 
         if (requestCode == 45 && resultCode == RESULT_OK) {
             TransactionType transactionType = (TransactionType) data.getSerializableExtra(TypeFragment.TYPE_SELECTED);
+            budget.transactionTypeId = transactionType.id;
             binding.txtType.setText(transactionType.name);
+            presenter.getResourceId(transactionType.iconId);
         }
+    }
+
+    @Override
+    public void showIcon(int resourceId) {
+        binding.icoType.setImageResource(resourceId);
     }
 }
