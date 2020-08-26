@@ -5,9 +5,9 @@ import androidx.lifecycle.Observer;
 
 import com.itus.u_money.App;
 import com.itus.u_money.contract.AddBudgetContract;
-import com.itus.u_money.contract.AddTransactionContract;
 import com.itus.u_money.model.AppDatabase;
-import com.itus.u_money.model.Transaction;
+import com.itus.u_money.model.Budget;
+import com.itus.u_money.model.dao.BudgetDAO;
 import com.itus.u_money.model.dao.IconDAO;
 
 public class AddBudgetPresenter implements AddBudgetContract.Presenter, Observer<Integer> {
@@ -19,8 +19,12 @@ public class AddBudgetPresenter implements AddBudgetContract.Presenter, Observer
     }
 
     @Override
-    public void saveTransaction(Transaction transaction) {
-
+    public void saveBudget(Budget budget) {
+        AppDatabase database = AppDatabase.getDatabase(App.getContext());
+        BudgetDAO budgetDAO = database.budgetDAO();
+        AppDatabase.executorService.execute(() -> {
+            budgetDAO.insertAll(budget);
+        });
     }
 
     @Override

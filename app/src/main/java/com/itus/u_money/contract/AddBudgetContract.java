@@ -1,6 +1,6 @@
 package com.itus.u_money.contract;
 
-import com.itus.u_money.model.Transaction;
+import com.itus.u_money.model.Budget;
 
 public interface AddBudgetContract {
    interface View {
@@ -8,7 +8,7 @@ public interface AddBudgetContract {
    }
 
    interface Presenter {
-      void saveTransaction(Transaction transaction);
+      void saveBudget(Budget budget);
 
       void getResourceId(int iconId);
    }

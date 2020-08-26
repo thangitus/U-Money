@@ -19,6 +19,7 @@ public class ChooseTypeActivity extends AppCompatActivity {
 
    public static final String CHOOSING_TYPE = "CHOOSING_TYPE";
    public static final String ADD_TRANSACTION = "ADD_TRANSACTION";
+   public static final String ONLY_OUTCOME = "ONLY_OUTCOME";
 
    private ActivityScreenSlideBinding binding;
    private String currentChoosingType;
