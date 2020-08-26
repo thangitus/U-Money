@@ -25,4 +25,9 @@ public class Transaction {
    public int eventId;
 
    public boolean paymentStatus;
+
+   public Transaction() {
+      this.amount = 0;
+      this.transactionTypeId = 0;
+   }
 }
