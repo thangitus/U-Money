@@ -16,14 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".view.activity.AddRecurringTransactionActivity"></activity>
+        <activity android:name=".view.activity.BudgetListActivity"></activity>
+        <activity android:name=".view.activity.AddRecurringTransactionActivity" />
         <activity android:name=".view.activity.AddBillActivity" />
         <activity
             android:name=".view.activity.StartActivity"
             android:theme="@style/FlashTheme"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".view.activity.FlashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +36,7 @@
         <activity
             android:name=".view.activity.AddTransactionActivity"
             android:parentActivityName=".view.activity.MainActivity" />
-        <activity android:name=".view.activity.MainActivity"></activity>
+        <activity android:name=".view.activity.MainActivity" />
     </application>
 
 </manifest>
