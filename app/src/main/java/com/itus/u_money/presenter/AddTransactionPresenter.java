@@ -1,5 +1,7 @@
 package com.itus.u_money.presenter;
 
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
@@ -31,6 +33,18 @@ public class AddTransactionPresenter implements AddTransactionContract.Presenter
          TransactionType transactionType = transactionTypeDAO.getById(transaction.transactionTypeId);
          transactionType.total += transaction.amount;
          transactionTypeDAO.update(transactionType);
+
+         SharedPreferences pref = App.getContext()
+                                     .getSharedPreferences("UMoney", 0); // 0 - for private mode
+         SharedPreferences.Editor editor = pref.edit();
+         long curAmount = pref.getLong("CurAmount", 0);
+         if (transactionType.transactionGroupId == 1)
+            curAmount -= transaction.amount;
+         else
+            curAmount += transaction.amount;
+
+         editor.putLong("CurAmount", curAmount);
+         editor.apply();
       });
    }
 

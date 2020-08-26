@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -163,10 +164,17 @@ public class AddTransactionActivity extends AppCompatActivity implements AddTran
    }
    public void onSaveClick(View view) {
       transaction.date = myCalendar.getTime();
-      transaction.amount = Long.parseLong(binding.edtCost.getText()
-                                                         .toString());
+      String amount = binding.edtCost.getText()
+                                     .toString();
+      if (!amount.equals(""))
+         transaction.amount = Long.parseLong(amount);
+
       transaction.note = binding.edtNote.getText()
                                         .toString();
+      if (transaction.transactionTypeId == 0)
+         transaction.transactionTypeId = 7;
+
+
       presenter.saveTransaction(transaction);
 
       finish();
