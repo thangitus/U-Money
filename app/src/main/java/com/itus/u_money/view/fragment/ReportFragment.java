@@ -24,6 +24,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.itus.u_money.R;
 import com.itus.u_money.contract.ReportContract;
 import com.itus.u_money.databinding.FragmentReportBinding;
+import com.itus.u_money.model.Icon;
 import com.itus.u_money.presenter.ReportPresenter;
 import com.itus.u_money.view.model.DataBarChart;
 import com.itus.u_money.view.model.Formatter;
@@ -62,6 +63,12 @@ public class ReportFragment extends Fragment implements ReportContract.View {
       initChart();
       presenter.onViewCreated();
    }
+
+   @Override
+   public void onResume() {
+      super.onResume();
+      presenter.getData();
+   }
    private void initChart() {
       chart = getActivity().findViewById(R.id.bar_chart);
       chart.setExtraTopOffset(-30f);
@@ -83,11 +90,8 @@ public class ReportFragment extends Fragment implements ReportContract.View {
       xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
       xAxis.setDrawGridLines(false);
       xAxis.setDrawAxisLine(false);
-      xAxis.setTextColor(Color.LTGRAY);
-      xAxis.setTextSize(13f);
-      xAxis.setLabelCount(5);
-      xAxis.setCenterAxisLabels(true);
       xAxis.setGranularity(1f);
+      xAxis.setDrawLabels(false);
 
       YAxis left = chart.getAxisLeft();
       left.setDrawLabels(false);
@@ -102,69 +106,6 @@ public class ReportFragment extends Fragment implements ReportContract.View {
            .setEnabled(false);
       chart.getLegend()
            .setEnabled(false);
-
-      // THIS IS THE ORIGINAL DATA YOU WANT TO PLOT
-      final List<DataBarChart> data = new ArrayList<>();
-      data.add(new DataBarChart(0f, 238.5f, "12-30"));
-      data.add(new DataBarChart(0f, -224.1f, "12-29"));
-      data.add(new DataBarChart(1f, 1280.1f, "12-31"));
-      data.add(new DataBarChart(1f, -442.3f, "01-01"));
-      data.add(new DataBarChart(2f, -2280.1f, "01-02"));
-      data.add(new DataBarChart(2f, 2280.1f, "01-02"));
-
-      xAxis.setValueFormatter(new ValueFormatter() {
-         @Override
-         public String getFormattedValue(float value) {
-            return data.get(Math.min(Math.max((int) value, 0), data.size() - 1)).xAxisValue;
-         }
-      });
-
-      setData(data);
-   }
-   private void setData(List<DataBarChart> dataList) {
-
-      ArrayList<BarEntry> values = new ArrayList<>();
-      List<Integer> colors = new ArrayList<>();
-
-      int green = Color.rgb(110, 190, 102);
-      int red = Color.rgb(211, 74, 88);
-
-      for (int i = 0; i < dataList.size(); i++) {
-
-         DataBarChart d = dataList.get(i);
-         BarEntry entry = new BarEntry(d.xValue, d.yValue);
-         values.add(entry);
-
-         // specific colors
-         if (d.yValue >= 0)
-            colors.add(red);
-         else
-            colors.add(green);
-      }
-
-      BarDataSet set;
-
-      if (chart.getData() != null && chart.getData()
-                                          .getDataSetCount() > 0) {
-         set = (BarDataSet) chart.getData()
-                                 .getDataSetByIndex(0);
-         set.setValues(values);
-         chart.getData()
-              .notifyDataChanged();
-         chart.notifyDataSetChanged();
-      } else {
-         set = new BarDataSet(values, "Values");
-         set.setColors(colors);
-         set.setValueTextColors(colors);
-
-         BarData data = new BarData(set);
-         data.setValueTextSize(13f);
-         data.setValueFormatter(new Formatter());
-         data.setBarWidth(0.8f);
-
-         chart.setData(data);
-         chart.invalidate();
-      }
    }
 
    @Override
@@ -213,5 +154,48 @@ public class ReportFragment extends Fragment implements ReportContract.View {
    @Override
    public void animateChart() {
       chart.animate();
+   }
+
+   @Override
+   public void updateChartData(List<DataBarChart> dataBarCharts, boolean animate) {
+      ArrayList<BarEntry> values = new ArrayList<>();
+      List<Integer> colors = new ArrayList<>();
+      int green = Color.rgb(110, 190, 102);
+      int red = Color.rgb(211, 74, 88);
+
+      for (int i = 0; i < dataBarCharts.size(); i++) {
+         DataBarChart d = dataBarCharts.get(i);
+         BarEntry entry = new BarEntry(d.xValue, d.yValue);
+         values.add(entry);
+         if (d.yValue < 0)
+            colors.add(red);
+         else
+            colors.add(green);
+      }
+
+      BarDataSet set;
+      set = new BarDataSet(values, "Values");
+      set.setColors(colors);
+      set.setValueTextColors(colors);
+
+      BarData data = new BarData(set);
+      data.setValueTextSize(13f);
+      data.setValueFormatter(new Formatter());
+      data.setBarWidth(0.8f);
+
+      if (animate)
+         chart.animate();
+      chart.setData(data);
+      chart.invalidate();
+   }
+   @Override
+   public void updateInOut(long in, long out) {
+      binding.textIn.setText(in + " VND");
+      binding.textOut.setText(out + " VND");
+   }
+   @Override
+   public void updateLoan(long loan, long borrow) {
+      binding.textLoan.setText(loan + " VND");
+      binding.textBorrow.setText(borrow + " VND");
    }
 }

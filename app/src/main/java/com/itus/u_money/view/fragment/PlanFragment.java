@@ -35,8 +35,6 @@ public class PlanFragment extends Fragment {
 
       binding = FragmentPlanBinding.inflate(getLayoutInflater());
 
-      View view = inflater.inflate(R.layout.fragment_plan, container, false);
-
       initActionBar();
 
       List<PlanOption> planOptions = new ArrayList<>();
