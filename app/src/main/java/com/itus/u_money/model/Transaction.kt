@@ -1,33 +1,28 @@
-package com.itus.u_money.model;
+package com.itus.u_money.model
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import java.util.Date;
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity
-public class Transaction {
-   @PrimaryKey(autoGenerate = true)
-   public int id;
-
-   public Date date;
-
-   public long amount;
-
-   public String note;
-
-   public boolean reportingStatus;
-
-   public int transactionTypeId;
-
-   public String imagePath;
-
-   public int eventId;
-
-   public boolean paymentStatus;
-
-   public Transaction() {
-      this.amount = 0;
-      this.transactionTypeId = 0;
-   }
+class Transaction {
+    @JvmField
+    @PrimaryKey(autoGenerate = true)
+    var id = 0
+    @JvmField
+    var date: Date? = null
+    @JvmField
+    var amount: Long = 0
+    @JvmField
+    var note: String? = null
+    @JvmField
+    var reportingStatus = false
+    @JvmField
+    var transactionTypeId = 0
+    @JvmField
+    var imagePath: String? = null
+    @JvmField
+    var eventId = 0
+    @JvmField
+    var paymentStatus = false
 }

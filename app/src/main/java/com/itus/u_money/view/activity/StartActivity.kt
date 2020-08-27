@@ -3,7 +3,6 @@ package com.itus.u_money.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.itus.u_money.contract.StartContract
 import com.itus.u_money.databinding.ActivityStartBinding
@@ -24,7 +23,7 @@ class StartActivity : AppCompatActivity(), StartContract.View {
         finish()
     }
 
-    fun onNextClick(view: View?) {
+    fun onNextClick() {
         val fullName = binding!!.edtFullName.text.toString()
         val curAmount = binding!!.currentMoney.text.toString().toLong()
 
