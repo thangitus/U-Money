@@ -84,7 +84,7 @@ public class ReportPresenter extends BaseCardPresenter implements ReportContract
             in = out = 0;
             for (Transaction transaction : transactions) {
                TransactionType transactionType = transactionTypeDAO.getById(transaction.transactionTypeId);
-               if (transactionType.transactionGroupId == 0)
+               if (transactionType.transactionGroupId == 1)
                   in += transaction.amount;
                else
                   out += transaction.amount;
@@ -119,7 +119,7 @@ public class ReportPresenter extends BaseCardPresenter implements ReportContract
             in = out = 0;
             for (Transaction transaction : transactions) {
                TransactionType transactionType = transactionTypeDAO.getById(transaction.transactionTypeId);
-               if (transactionType.transactionGroupId == 0)
+               if (transactionType.transactionGroupId == 1)
                   in += transaction.amount;
                else
                   out += transaction.amount;
@@ -148,7 +148,7 @@ public class ReportPresenter extends BaseCardPresenter implements ReportContract
       });
    }
    private void updateTotal(Transaction transaction, TransactionType transactionType) {
-      if (transactionType.transactionGroupId == 0)
+      if (transactionType.transactionGroupId == 1)
          totalIn += transaction.amount;
       else
          totalOut += transaction.amount;

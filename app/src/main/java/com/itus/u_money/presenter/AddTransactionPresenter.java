@@ -38,7 +38,7 @@ public class AddTransactionPresenter implements AddTransactionContract.Presenter
                                      .getSharedPreferences("UMoney", 0); // 0 - for private mode
          SharedPreferences.Editor editor = pref.edit();
          long curAmount = pref.getLong("CurAmount", 0);
-         if (transactionType.transactionGroupId == 1)
+         if (transactionType.transactionGroupId == 0)
             curAmount -= transaction.amount;
          else
             curAmount += transaction.amount;

@@ -56,82 +56,83 @@ public class App extends Application {
                     .iconDAO()
                     .insert(new Icon(10, R.drawable.ic_type_shopping, "#F37C2A"));
          AppDatabase.getDatabase(this)
-                 .iconDAO()
-                 .insert(new Icon(11, R.drawable.ic_type_travel, "#6EC2CB"));
+                    .iconDAO()
+                    .insert(new Icon(11, R.drawable.ic_type_travel, "#6EC2CB"));
          AppDatabase.getDatabase(this)
-                 .iconDAO()
-                 .insert(new Icon(12, R.drawable.ic_type_health, "#4ABC96"));
+                    .iconDAO()
+                    .insert(new Icon(12, R.drawable.ic_type_health, "#4ABC96"));
          AppDatabase.getDatabase(this)
-                 .iconDAO()
-                 .insert(new Icon(13, R.drawable.ic_type_family, "#FCB922"));
+                    .iconDAO()
+                    .insert(new Icon(13, R.drawable.ic_type_family, "#FCB922"));
          AppDatabase.getDatabase(this)
-                 .iconDAO()
-                 .insert(new Icon(14, R.drawable.ic_type_lend_money, "#1C448E"));
+                    .iconDAO()
+                    .insert(new Icon(14, R.drawable.ic_type_lend_money, "#1C448E"));
          AppDatabase.getDatabase(this)
-                 .iconDAO()
-                 .insert(new Icon(15, R.drawable.ic_type_pay_loan, "#D6725F"));
+                    .iconDAO()
+                    .insert(new Icon(15, R.drawable.ic_type_pay_loan, "#D6725F"));
          AppDatabase.getDatabase(this)
-                 .iconDAO()
-                 .insert(new Icon(16, R.drawable.ic_type_other, "#A0A0A0"));
+                    .iconDAO()
+                    .insert(new Icon(16, R.drawable.ic_type_other, "#A0A0A0"));
 
          // Init group table
          AppDatabase.getDatabase(this)
                     .transactionGroupDAO()
-                    .insert(new TransactionGroup(0, "Nhóm thu"));
+                    .insert(new TransactionGroup(0, "Nhóm chi"));
+
          AppDatabase.getDatabase(this)
                     .transactionGroupDAO()
-                    .insert(new TransactionGroup(1, "Nhóm chi"));
+                    .insert(new TransactionGroup(1, "Nhóm thu"));
 
          // Init type table
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(1, "Tiền lãi", 0, 1));
+                    .insert(new TransactionType(1, "Tiền lãi", 1, 1));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(2, "Lương", 0, 2));
+                    .insert(new TransactionType(2, "Lương", 1, 2));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(3, "Bán đồ", 0, 3));
+                    .insert(new TransactionType(3, "Bán đồ", 1, 3));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(4, "Được tặng", 0, 4));
+                    .insert(new TransactionType(4, "Được tặng", 1, 4));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(5, "Đi vay", 0, 5));
+                    .insert(new TransactionType(5, "Đi vay", 1, 5));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(6, "Thu nợ", 0, 6));
+                    .insert(new TransactionType(6, "Thu nợ", 1, 6));
 
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(7, "Tất cả các khoản", 1, 7));
+                    .insert(new TransactionType(7, "Tất cả các khoản", 0, 7));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(8, "Ăn uống", 1, 8));
+                    .insert(new TransactionType(8, "Ăn uống", 0, 8));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(9, "Giải trí", 1, 9));
+                    .insert(new TransactionType(9, "Giải trí", 0, 9));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(10, "Mua sắm", 1, 10));
+                    .insert(new TransactionType(10, "Mua sắm", 0, 10));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(11, "Du lịch", 1, 11));
+                    .insert(new TransactionType(11, "Du lịch", 0, 11));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(12, "Sức khỏe", 1, 12));
+                    .insert(new TransactionType(12, "Sức khỏe", 0, 12));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(13, "Gia đình", 1, 13));
+                    .insert(new TransactionType(13, "Gia đình", 0, 13));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(14, "Cho vay", 1, 14));
+                    .insert(new TransactionType(14, "Cho vay", 0, 14));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(15, "Trả nợ", 1, 15));
+                    .insert(new TransactionType(15, "Trả nợ", 0, 15));
          AppDatabase.getDatabase(this)
                     .transactionTypeDAO()
-                    .insert(new TransactionType(16, "Khác", 1, 16));
+                    .insert(new TransactionType(16, "Khác", 0, 16));
       });
    }
 }

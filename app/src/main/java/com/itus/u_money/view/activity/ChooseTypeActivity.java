@@ -79,9 +79,9 @@ public class ChooseTypeActivity extends AppCompatActivity {
       public CharSequence getPageTitle(int position) {
          switch (position) {
             case 0:
-               return "Khoản thu";
-            case 1:
                return "Khoản chi";
+            case 1:
+               return "Khoản thu";
             default:
                return null;
          }

@@ -71,7 +71,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
          binding.textViewNote.setText(transaction.note);
          binding.textViewPrice.setText(transaction.amount + " VND");
 
-         if (transactionType.transactionGroupId == 0)
+         if (transactionType.transactionGroupId == 1)
             binding.textViewPrice.setTextColor(Color.BLUE);
          else
             binding.textViewPrice.setTextColor(Color.RED);

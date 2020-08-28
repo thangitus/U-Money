@@ -14,4 +14,5 @@ public class TransactionGroup {
         this.id = id;
         this.name = name;
     }
+
 }

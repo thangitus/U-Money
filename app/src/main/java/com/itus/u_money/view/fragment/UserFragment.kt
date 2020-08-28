@@ -19,11 +19,6 @@ class UserFragment : Fragment() {
         return binding!!.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume: ");
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pref = context!!.getSharedPreferences("UMoney", 0) // 0 - for private mode
