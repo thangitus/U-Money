@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface IconDAO {
    @Query("SELECT * FROM `Icon`")
-   List<Icon> getAll();
+   LiveData<List<Icon>> getAll();
 
    @Query("SELECT resourceId FROM `Icon` WHERE id = :id")
    LiveData<Integer> getResourceIdFromId(int id);

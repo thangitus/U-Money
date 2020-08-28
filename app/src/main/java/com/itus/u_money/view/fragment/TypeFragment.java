@@ -16,13 +16,13 @@ import com.itus.u_money.contract.TypeContract;
 import com.itus.u_money.databinding.FragmentScreenSlideBinding;
 import com.itus.u_money.model.TransactionType;
 import com.itus.u_money.presenter.TypePresenter;
-import com.itus.u_money.view.adapter.RecyclerViewListener;
+import com.itus.u_money.view.adapter.TransactionTypeListener;
 import com.itus.u_money.view.adapter.TypeAdapter;
 
 import java.util.List;
 import java.util.Objects;
 
-public class TypeFragment extends Fragment implements RecyclerViewListener, TypeContract.View {
+public class TypeFragment extends Fragment implements TransactionTypeListener, TypeContract.View {
    public static final String CHOOSING_TYPE = "CHOOSING_TYPE";
    public static final String ADD_TRANSACTION = "ADD_TRANSACTION";
    private static final String GROUP_INDEX = "GROUP_INDEX";

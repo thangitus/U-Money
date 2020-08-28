@@ -1,52 +1,51 @@
 package com.itus.u_money.view.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.ActivityAddEventBinding;
+import com.itus.u_money.model.Icon;
+import com.itus.u_money.view.fragment.ChooseIconDialogFragment;
 
 import java.util.Objects;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    private ActivityAddEventBinding binding;
+   private ActivityAddEventBinding binding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityAddEventBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+   public Icon icon;
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      binding = ActivityAddEventBinding.inflate(getLayoutInflater());
+      setContentView(binding.getRoot());
+      initActionBar();
+   }
 
-        initActionBar();
-    }
+   private void initActionBar() {
+      setSupportActionBar(binding.toolbar);
+      Objects.requireNonNull(getSupportActionBar())
+             .setDisplayHomeAsUpEnabled(false);
+      getSupportActionBar().setDisplayShowTitleEnabled(false);
+      getSupportActionBar().setDisplayShowHomeEnabled(false);
+   }
 
-    private void initActionBar() {
-        setSupportActionBar(binding.toolbar);
-        Objects.requireNonNull(getSupportActionBar())
-                .setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-    }
+   public void upHandle(View view) {
+      view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.image_press));
+      this.finish();
+   }
 
-    public void upHandle(View view) {
-        view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.image_press));
-        this.finish();
-    }
-
-    public void pickIcon(View view) {
-        Intent intent = new Intent(this, ChooseTypeActivity.class);
-        intent.putExtra(ChooseTypeActivity.CHOOSING_TYPE, ChooseTypeActivity.ADD_TRANSACTION);
-        startActivityForResult(intent, 45);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+   public void pickIcon(View view) {
+      DialogFragment dialogFragment = ChooseIconDialogFragment.Companion.newInstance();
+      dialogFragment.show(getSupportFragmentManager(), "dialog");
+   }
+   public void updateIcon(Icon icon) {
+      this.icon = icon;
+      binding.icon.setImageResource(icon.resourceId);
+   }
 }
