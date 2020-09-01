@@ -17,7 +17,7 @@
     <string name="event">Sự kiện</string>
     <string name="event_description">Tạo sự kiện trong ứng dụng để theo dõi việc chi tiêu trong một sự kiện có thực nào đó, ví dụ như đi du lịch cuối tuần</string>
     <string name="bill">Hóa đơn</string>
-    <string name="bill_description">Theo dõi các hóa đơn định kì sẽ được gửi đến như điện, nước, thuê nhà, internet, ...</string>
+    <string name="bill_description">Theo dõi các hóa đơn định kì sẽ được gửi đến như điện, nước, thuê nhà, internet, …</string>
     <string name="recurring_transaction">Giao dịch định kì</string>
     <string name="recurring_transaction_description">Các giao dịch định kì xảy ra trong tương lai sẽ được tự động thêm</string>
     <string name="transaction_name">Tên giao dịch</string>
@@ -25,4 +25,7 @@
     <string name="init_value">0 VND</string>
     <string name="next">Tiếp tục</string>
     <string name="update">Cập nhật</string>
+    <string name="this_month">Tháng này (%1$s - %2$s)</string>
+    <string name="this_week">Tuần này (%1$s - %2$s)</string>
+    <string name="this_year">Năm này (%1$s - %2$s)</string>
 </resources>

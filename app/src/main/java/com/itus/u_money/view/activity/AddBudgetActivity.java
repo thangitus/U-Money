@@ -37,6 +37,13 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
         presenter = new AddBudgetPresenter(this);
         setContentView(binding.getRoot());
         initActionBar();
+        initDefaultTime();
+    }
+
+    private void initDefaultTime() {
+        binding.txtTime.setText(getResources().getString(R.string.this_month, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
+        budget.startTime = DateTime.getFirstDayOfThisMonth();
+        budget.loopType = "MONTH";
     }
 
     private void initActionBar() {
@@ -80,9 +87,9 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.popup_menu_time);
 
-        popupMenu.getMenu().getItem(0).setTitle("Tuần này (" + DateTime.getStringFirstDayOfThisWeek() + " - " + DateTime.getStringLastDayOfThisWeek() + ")");
-        popupMenu.getMenu().getItem(1).setTitle("Tháng này (" + DateTime.getStringFirstDayOfThisMonth() + " - " + DateTime.getStringLastDayOfThisMonth() + ")");
-        popupMenu.getMenu().getItem(2).setTitle("Năm này (" + DateTime.getStringFirstDayOfThisYear() + " - " + DateTime.getStringLastDayOfThisYear() + ")");
+        popupMenu.getMenu().getItem(0).setTitle(getResources().getString(R.string.this_week, DateTime.getStringFirstDayOfThisWeek(), DateTime.getStringLastDayOfThisWeek()));
+        popupMenu.getMenu().getItem(1).setTitle(getResources().getString(R.string.this_month, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
+        popupMenu.getMenu().getItem(2).setTitle(getResources().getString(R.string.this_year, DateTime.getStringFirstDayOfThisYear(), DateTime.getStringLastDayOfThisYear()));
         popupMenu.show();
     }
 
