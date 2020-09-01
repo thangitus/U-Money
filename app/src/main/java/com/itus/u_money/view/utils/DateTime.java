@@ -3,14 +3,13 @@ package com.itus.u_money.view.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class DateTime {
     private static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
     public static Date getFirstDayOfThisWeek() {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_WEEK, cal.getActualMinimum(Calendar.DAY_OF_WEEK));
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
         return cal.getTime();
     }
 
