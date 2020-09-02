@@ -28,4 +28,6 @@
     <string name="this_month">Tháng này (%1$s - %2$s)</string>
     <string name="this_week">Tuần này (%1$s - %2$s)</string>
     <string name="this_year">Năm này (%1$s - %2$s)</string>
+    <string name="add_budget_successfully">Thêm ngân sách thành công</string>
+    <string name="add_budget_failed">Thêm ngân sách thất bại</string>
 </resources>

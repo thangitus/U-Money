@@ -29,8 +29,7 @@ public class AddBudgetPresenter implements AddBudgetContract.Presenter, Observer
 
     @Override
     public void getResourceId(int iconId) {
-        IconDAO iconDAO = AppDatabase.getDatabase(App.getContext())
-                .iconDAO();
+        IconDAO iconDAO = AppDatabase.getDatabase(App.getContext()).iconDAO();
         resourceId = iconDAO.getResourceIdFromId(iconId);
         resourceId.observeForever(this);
     }

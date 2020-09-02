@@ -54,16 +54,14 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
         getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
 
-    public void upHandle(View view) {
-        view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.image_press));
-        this.finish();
+    // VIEW'S METHODS
+
+    @Override
+    public void showIcon(int resourceId) {
+        binding.icoType.setImageResource(resourceId);
     }
 
-    public void chooseType(View view) {
-        Intent intent = new Intent(this, ChooseTypeActivity.class);
-        intent.putExtra(ChooseTypeActivity.CHOOSING_TYPE, "Other");
-        startActivityForResult(intent, 45);
-    }
+    // EVENTS
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -75,22 +73,6 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
             binding.txtType.setText(transactionType.name);
             presenter.getResourceId(transactionType.iconId);
         }
-    }
-
-    @Override
-    public void showIcon(int resourceId) {
-        binding.icoType.setImageResource(resourceId);
-    }
-
-    public void showTimeMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v);
-        popupMenu.setOnMenuItemClickListener(this);
-        popupMenu.inflate(R.menu.popup_menu_time);
-
-        popupMenu.getMenu().getItem(0).setTitle(getResources().getString(R.string.this_week, DateTime.getStringFirstDayOfThisWeek(), DateTime.getStringLastDayOfThisWeek()));
-        popupMenu.getMenu().getItem(1).setTitle(getResources().getString(R.string.this_month, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
-        popupMenu.getMenu().getItem(2).setTitle(getResources().getString(R.string.this_year, DateTime.getStringFirstDayOfThisYear(), DateTime.getStringLastDayOfThisYear()));
-        popupMenu.show();
     }
 
     @Override
@@ -115,6 +97,11 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
         }
     }
 
+    public void onUpButtonClick(View view) {
+        view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.image_press));
+        finish();
+    }
+
     public void onSaveClick(View view) {
         String amount = binding.edtAmount.getText().toString();
         if (!amount.equals(""))
@@ -123,13 +110,35 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
             budget.amount = 0;
 
         budget.usedAmount = 0;
-        // Update used amount
+        // ... Update used amount
 
         budget.isRepeated = binding.checkbox.isChecked();
 
-        presenter.saveBudget(budget);
+        try {
+            presenter.saveBudget(budget);
+            Toast.makeText(this, getResources().getString(R.string.add_budget_successfully), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, getResources().getString(R.string.add_budget_failed), Toast.LENGTH_SHORT).show();
+        }
 
-        Toast.makeText(this, "Thêm ngân sách thành công", Toast.LENGTH_SHORT).show();
+        view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.image_press));
         finish();
+    }
+
+    public void startChooseType(View view) {
+        Intent intent = new Intent(this, ChooseTypeActivity.class);
+        intent.putExtra(ChooseTypeActivity.CHOOSING_TYPE, "Other");
+        startActivityForResult(intent, 45);
+    }
+
+    public void showTimeMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.popup_menu_time);
+
+        popupMenu.getMenu().getItem(0).setTitle(getResources().getString(R.string.this_week, DateTime.getStringFirstDayOfThisWeek(), DateTime.getStringLastDayOfThisWeek()));
+        popupMenu.getMenu().getItem(1).setTitle(getResources().getString(R.string.this_month, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
+        popupMenu.getMenu().getItem(2).setTitle(getResources().getString(R.string.this_year, DateTime.getStringFirstDayOfThisYear(), DateTime.getStringLastDayOfThisYear()));
+        popupMenu.show();
     }
 }
