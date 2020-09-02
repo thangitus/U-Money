@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "24b797795aaf14648a52531ca159a787",
+    "identityHash": "de107b603dbd51b2a061cba1202e7edf",
     "entities": [
       {
         "tableName": "Transaction",
@@ -232,7 +232,7 @@
       },
       {
         "tableName": "Event",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `iconPath` TEXT, `endTime` INTEGER, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `iconId` INTEGER NOT NULL, `endTime` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -247,10 +247,10 @@
             "notNull": false
           },
           {
-            "fieldPath": "iconPath",
-            "columnName": "iconPath",
-            "affinity": "TEXT",
-            "notNull": false
+            "fieldPath": "iconId",
+            "columnName": "iconId",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "endTime",
@@ -263,7 +263,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -384,7 +384,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '24b797795aaf14648a52531ca159a787')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'de107b603dbd51b2a061cba1202e7edf')"
     ]
   }
 }

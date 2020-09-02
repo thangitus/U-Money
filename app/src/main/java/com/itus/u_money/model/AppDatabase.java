@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.itus.u_money.model.dao.BudgetDAO;
+import com.itus.u_money.model.dao.EventDAO;
 import com.itus.u_money.model.dao.EventWithTransactionsDAO;
 import com.itus.u_money.model.dao.IconDAO;
 import com.itus.u_money.model.dao.TransactionDAO;
@@ -52,4 +53,6 @@ public abstract class AppDatabase extends RoomDatabase {
    public abstract IconDAO iconDAO();
 
    public abstract BudgetDAO budgetDAO();
+
+   public abstract EventDAO eventDAO();
 }

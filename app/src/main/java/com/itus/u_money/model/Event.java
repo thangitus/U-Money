@@ -7,12 +7,12 @@ import java.util.Date;
 
 @Entity
 public class Event {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
 
     public String name;
 
-    public String iconPath;
+    public int iconId;
 
     public Date endTime;
 }
