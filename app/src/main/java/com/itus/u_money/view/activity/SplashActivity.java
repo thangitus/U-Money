@@ -11,9 +11,9 @@ import android.view.WindowManager;
 import com.airbnb.lottie.LottieAnimationView;
 import com.itus.u_money.R;
 import com.itus.u_money.contract.FlashContract;
-import com.itus.u_money.presenter.FlashPresenter;
+import com.itus.u_money.presenter.SplashPresenter;
 
-public class FlashActivity extends AppCompatActivity implements FlashContract.View {
+public class SplashActivity extends AppCompatActivity implements FlashContract.View {
 
    LottieAnimationView animationView;
    FlashContract.Presenter presenter;
@@ -22,9 +22,9 @@ public class FlashActivity extends AppCompatActivity implements FlashContract.Vi
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_flash);
+      setContentView(R.layout.activity_splash);
       getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      presenter = new FlashPresenter(this);
+      presenter = new SplashPresenter(this);
       animationView = findViewById(R.id.animation_view);
       SharedPreferences pref = getApplicationContext().getSharedPreferences("UMoney", 0); // 0 - for private mode
       boolean isFirst = pref.getBoolean("IsFirst", true);
