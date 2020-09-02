@@ -3,6 +3,7 @@ package com.itus.u_money.model.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -21,7 +22,7 @@ public interface TransactionDAO {
    @Query("SELECT * FROM `Transaction` WHERE date BETWEEN :startDate AND :endDate")
    List<Transaction> getByDate(Long startDate, Long endDate);
 
-   @Insert
+   @Insert(onConflict = OnConflictStrategy.REPLACE)
    void insertAll(Transaction... transactions);
 
    @Update

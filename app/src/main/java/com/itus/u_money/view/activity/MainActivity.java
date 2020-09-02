@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
    }
 
    public void addTransaction(View view) {
-      Intent intent = new Intent(this, AddTransactionActivity.class);
+      Intent intent = new Intent(this, DetailTransactionActivity.class);
       startActivityForResult(intent, ADD_TRANSACTION);
       binding.motionLayout.transitionToStart();
    }
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
       startActivityForResult(intent, ADD_BILL);
       binding.motionLayout.transitionToStart();
    }
-   
+
    public void addRecurringTransaction(View view) {
       Intent intent = new Intent(this, AddRecurringTransactionActivity.class);
       startActivityForResult(intent, ADD_RECURRING_TRANSACTION);

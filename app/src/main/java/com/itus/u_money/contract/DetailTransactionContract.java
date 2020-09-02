@@ -2,7 +2,7 @@ package com.itus.u_money.contract;
 
 import com.itus.u_money.model.Transaction;
 
-public interface AddTransactionContract {
+public interface DetailTransactionContract {
    interface View {
       void showIconTransaction(int resourceId);
    }
