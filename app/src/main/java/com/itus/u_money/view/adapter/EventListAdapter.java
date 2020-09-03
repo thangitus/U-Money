@@ -12,55 +12,58 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.itus.u_money.R;
-import com.itus.u_money.view.model.BudgetItem;
-import com.itus.u_money.view.model.PlanOption;
+import com.itus.u_money.view.model.EventItem;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class BudgetListAdapter extends RecyclerView.Adapter<BudgetListAdapter.ViewHolder> {
+public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
     private Context context;
-    private List<BudgetItem> budgetItems;
+    private List<EventItem> eventItems;
 
-    public BudgetListAdapter(Context context, List<BudgetItem> budgetItems) {
+    public EventListAdapter(Context context, List<EventItem> eventItems) {
         this.context = context;
-        this.budgetItems = budgetItems;
+        this.eventItems = eventItems;
     }
 
-    public void setBudgetItems(List<BudgetItem> budgetItems) {
-        this.budgetItems = budgetItems;
+    public void setEventItems(List<EventItem> eventItems) {
+        this.eventItems = eventItems;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_budget, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_event, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        BudgetItem item = budgetItems.get(position);
+        EventItem item = eventItems.get(position);
         holder.icon.setImageResource(item.getIcon());
-        holder.type.setText(item.getType());
-        holder.amount.setText(item.getAmount() + "");
+        holder.name.setText(item.getName());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        holder.date.setText(sdf.format(item.getDate()));
     }
 
     @Override
     public int getItemCount() {
-        return budgetItems.size();
+        return eventItems.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView icon;
-        TextView type;
-        TextView amount;
+        TextView name;
+        TextView date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            icon = itemView.findViewById(R.id.icon);
-            type = itemView.findViewById(R.id.type);
-            amount = itemView.findViewById(R.id.amount);
+            icon = itemView.findViewById(R.id.event_icon);
+            name = itemView.findViewById(R.id.event_name);
+            date = itemView.findViewById(R.id.date);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

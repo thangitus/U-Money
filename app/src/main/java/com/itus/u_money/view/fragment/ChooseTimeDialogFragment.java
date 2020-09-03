@@ -1,6 +1,11 @@
 package com.itus.u_money.view.fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,11 +21,16 @@ import androidx.fragment.app.DialogFragment;
 
 import com.itus.u_money.R;
 import com.itus.u_money.databinding.FragmentChooseTimeBinding;
+import com.itus.u_money.view.activity.AddBillActivity;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ChooseTimeDialogFragment extends DialogFragment {
     FragmentChooseTimeBinding binding;
@@ -40,26 +50,24 @@ public class ChooseTimeDialogFragment extends DialogFragment {
         return fragment;
     }
 
+    @NonNull
     @Override
-    public void onStart() {
-        super.onStart();
-        int width = getResources().getDisplayMetrics().widthPixels;
-        getDialog().getWindow().setLayout(width * 9 / 10, WindowManager.LayoutParams.WRAP_CONTENT);
-    }
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        binding = FragmentChooseTimeBinding.inflate(LayoutInflater.from(getContext()));
+        builder.setView(binding.getRoot());
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentChooseTimeBinding.inflate(inflater);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        builder.setPositiveButton("Xác nhận", this::onConfirm);
+        builder.setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
 
         isLooped = true;
         data = new Bundle();
+        data.putString("loop_type", "DAY");
+        data.putString("loop_state", "forever");
+        data.putSerializable("weekdays", (Serializable) new ArrayList<>());
+        data.putInt("loop_number", -1);
+
+        startDate = Calendar.getInstance().getTime();
 
         binding.swcIsLoop.setOnCheckedChangeListener(this::switchHandle);
         binding.loopTypeGroup.setOnClickListener(this::showLoopTypePopUpMenu);
@@ -73,6 +81,53 @@ public class ChooseTimeDialogFragment extends DialogFragment {
         binding.friday.setOnCheckedChangeListener(this::weekDaysCheckHandle);
         binding.saturday.setOnCheckedChangeListener(this::weekDaysCheckHandle);
         binding.sunday.setOnCheckedChangeListener(this::weekDaysCheckHandle);
+
+        return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        int width = getResources().getDisplayMetrics().widthPixels;
+        getDialog().getWindow().setLayout(width * 9 / 10, WindowManager.LayoutParams.WRAP_CONTENT);
+    }
+
+
+    private void onConfirm(DialogInterface dialog, int i) {
+        data.putSerializable("start_date", startDate);
+        data.putBoolean("is_looped", binding.swcIsLoop.isChecked());
+
+        if (binding.swcIsLoop.isChecked()) {
+            int interval = 1;
+            if (!binding.edtInterval.getText().toString().equals(""))
+                interval = Integer.parseInt(binding.edtInterval.getText().toString());
+            data.putInt("interval", interval);
+
+            if (Objects.equals(data.getString("loop_type"), "WEEK")) {
+                List<Integer> list = new ArrayList<>();
+                if (binding.sunday.isChecked()) list.add(1);
+                if (binding.monday.isChecked()) list.add(2);
+                if (binding.tuesday.isChecked()) list.add(3);
+                if (binding.wednesday.isChecked()) list.add(4);
+                if (binding.thursday.isChecked()) list.add(5);
+                if (binding.friday.isChecked()) list.add(6);
+                if (binding.saturday.isChecked()) list.add(7);
+
+                data.putSerializable("weekdays", (Serializable) list);
+            }
+
+            if (Objects.equals(data.getString("loop_state"), "to_date")) {
+                data.putSerializable("end_date", endDate);
+            }
+
+            if (Objects.equals(data.getString("loop_state"), "specific_number")) {
+                data.putInt("loop_number", Integer.parseInt(binding.edtLoopNumber.getText().toString()));
+            }
+        }
+
+        AddBillActivity activity = (AddBillActivity) requireActivity();
+        activity.setTimeData(data);
+        dialog.dismiss();
     }
 
     private void weekDaysCheckHandle(CompoundButton compoundButton, boolean b) {
@@ -193,22 +248,22 @@ public class ChooseTimeDialogFragment extends DialogFragment {
 
             switch (menuItem.getItemId()) {
                 case R.id.loopDaily:
-                    data.putString("loop_type", "loop_daily");
+                    data.putString("loop_type", "DAY");
                     binding.weekDays.setVisibility(View.GONE);
                     binding.txtIntervalUnit.setText(getResources().getString(R.string.day));
                     return true;
                 case R.id.loopWeekly:
-                    data.putString("loop_type", "loop_weekly");
+                    data.putString("loop_type", "WEEK");
                     binding.weekDays.setVisibility(View.VISIBLE);
                     binding.txtIntervalUnit.setText(getResources().getString(R.string.week));
                     return true;
                 case R.id.loopMonthly:
-                    data.putString("loop_type", "loop_monthly");
+                    data.putString("loop_type", "MONTH");
                     binding.weekDays.setVisibility(View.GONE);
                     binding.txtIntervalUnit.setText(getResources().getString(R.string.month));
                     return true;
                 case R.id.loopYearly:
-                    data.putString("loop_type", "loop_yearly");
+                    data.putString("loop_type", "YEAR");
                     binding.weekDays.setVisibility(View.GONE);
                     binding.txtIntervalUnit.setText(getResources().getString(R.string.year));
                     return true;

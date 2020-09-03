@@ -9,12 +9,12 @@ import java.util.List;
 public class Converters {
     @TypeConverter
     public static Date fromTimestamp(Long value) {
-        return value == null ? null : new Date(value);
+        return value == 0 ? null : new Date(value);
     }
 
     @TypeConverter
     public static long dateToTimestamp(Date date) {
-        return date == null ? null : date.getTime();
+        return date == null ? 0 : date.getTime();
     }
 
     @TypeConverter
