@@ -41,7 +41,7 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
     }
 
     private void initDefaultTime() {
-        binding.txtTime.setText(getResources().getString(R.string.this_month, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
+        binding.txtTime.setText(getResources().getString(R.string.this_month_from_to, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
         budget.startTime = DateTime.getFirstDayOfThisMonth();
         budget.loopType = "MONTH";
     }
@@ -136,9 +136,9 @@ public class AddBudgetActivity extends AppCompatActivity implements AddBudgetCon
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.popup_menu_time);
 
-        popupMenu.getMenu().getItem(0).setTitle(getResources().getString(R.string.this_week, DateTime.getStringFirstDayOfThisWeek(), DateTime.getStringLastDayOfThisWeek()));
-        popupMenu.getMenu().getItem(1).setTitle(getResources().getString(R.string.this_month, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
-        popupMenu.getMenu().getItem(2).setTitle(getResources().getString(R.string.this_year, DateTime.getStringFirstDayOfThisYear(), DateTime.getStringLastDayOfThisYear()));
+        popupMenu.getMenu().getItem(0).setTitle(getResources().getString(R.string.this_week_from_to, DateTime.getStringFirstDayOfThisWeek(), DateTime.getStringLastDayOfThisWeek()));
+        popupMenu.getMenu().getItem(1).setTitle(getResources().getString(R.string.this_month_from_to, DateTime.getStringFirstDayOfThisMonth(), DateTime.getStringLastDayOfThisMonth()));
+        popupMenu.getMenu().getItem(2).setTitle(getResources().getString(R.string.this_year_from_to, DateTime.getStringFirstDayOfThisYear(), DateTime.getStringLastDayOfThisYear()));
         popupMenu.show();
     }
 }

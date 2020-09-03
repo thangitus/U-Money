@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingHorizontal="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".view.fragment.ChooseTimeDialogFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loopTypeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtLoopType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loop_daily"
+            android:textColor="#525252"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icoPickLoopType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_down"
+            app:layout_constraintBottom_toBottomOf="@id/txtLoopType"
+            app:layout_constraintStart_toEndOf="@id/txtLoopType"
+            app:layout_constraintTop_toTopOf="@id/txtLoopType" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swcIsLoop"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/loopTypeGroup"
+        app:layout_constraintTop_toTopOf="@id/loopTypeGroup"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/from"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/loopTypeGroup"
+        app:layout_constraintTop_toBottomOf="@id/loopTypeGroup" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/startDateGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/txtFrom"
+        app:layout_constraintStart_toEndOf="@id/txtFrom"
+        app:layout_constraintTop_toTopOf="@id/txtFrom"
+        android:layout_marginStart="8dp">
+
+        <TextView
+            android:id="@+id/txtStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/today"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/icoPickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/txtStartDate"
+            app:layout_constraintStart_toEndOf="@id/txtStartDate"
+            app:layout_constraintTop_toTopOf="@id/txtStartDate"
+            app:srcCompat="@drawable/ic_down" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtEvery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/every"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/txtFrom"
+        app:layout_constraintTop_toBottomOf="@id/txtFrom" />
+
+    <EditText
+        android:id="@+id/edtInterval"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:autofillHints="1"
+        android:hint="@string/_1"
+        android:textColor="#525252"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/txtEvery"
+        app:layout_constraintStart_toEndOf="@id/txtEvery"
+        app:layout_constraintTop_toTopOf="@id/txtEvery" />
+
+    <TextView
+        android:id="@+id/txtIntervalUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/day"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtInterval"
+        app:layout_constraintStart_toEndOf="@+id/edtInterval"
+        app:layout_constraintTop_toTopOf="@+id/edtInterval" />
+
+    <LinearLayout
+        android:id="@+id/weekDays"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/txtEvery"
+        app:layout_constraintTop_toBottomOf="@id/txtEvery"
+        android:gravity="center"
+        android:showDividers="middle"
+        android:divider="@drawable/item_divider">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <CheckBox
+                android:id="@+id/monday"
+                android:button="@drawable/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <CheckBox
+                android:id="@+id/tuesday"
+                android:button="@drawable/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T3"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <CheckBox
+                android:id="@+id/wednesday"
+                android:button="@drawable/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T4"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <CheckBox
+                android:id="@+id/thursday"
+                android:button="@drawable/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T5"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <CheckBox
+                android:id="@+id/friday"
+                android:button="@drawable/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T6"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <CheckBox
+                android:id="@+id/saturday"
+                android:button="@drawable/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T7"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <CheckBox
+                android:id="@+id/sunday"
+                android:button="@drawable/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CN"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loopStateGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@id/txtEvery"
+        app:layout_constraintTop_toBottomOf="@id/weekDays">
+
+        <TextView
+            android:id="@+id/txtLoopState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forever"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtLoopState"
+            app:layout_constraintStart_toEndOf="@+id/txtLoopState"
+            app:layout_constraintTop_toTopOf="@+id/txtLoopState"
+            app:srcCompat="@drawable/ic_down" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/endtDateGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/loopStateGroup"
+        app:layout_constraintStart_toEndOf="@id/loopStateGroup"
+        app:layout_constraintTop_toTopOf="@id/loopStateGroup">
+
+        <TextView
+            android:id="@+id/txtEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/txtEndDate"
+            app:layout_constraintStart_toEndOf="@id/txtEndDate"
+            app:layout_constraintTop_toTopOf="@id/txtEndDate"
+            app:srcCompat="@drawable/ic_down" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loopNumberGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/loopStateGroup"
+        app:layout_constraintBottom_toBottomOf="@id/loopStateGroup"
+        app:layout_constraintStart_toEndOf="@id/loopStateGroup"
+        android:visibility="gone"
+        android:layout_marginStart="8dp">
+
+        <EditText
+            android:id="@+id/edtLoopNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="18sp"
+            android:hint="@string/_1"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/edtLoopNumber"
+            app:layout_constraintBottom_toBottomOf="@id/edtLoopNumber"
+            app:layout_constraintStart_toEndOf="@id/edtLoopNumber"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            android:text="@string/times"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

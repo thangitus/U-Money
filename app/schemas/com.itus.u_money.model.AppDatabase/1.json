@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "de107b603dbd51b2a061cba1202e7edf",
+    "identityHash": "d64ac21a4430e57d38c1f389c4e89cd4",
     "entities": [
       {
         "tableName": "Transaction",
@@ -270,7 +270,7 @@
       },
       {
         "tableName": "Bill",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `amount` INTEGER NOT NULL, `transactionTypeId` INTEGER NOT NULL, `note` TEXT, `startTime` INTEGER, `endTime` INTEGER, `gapDays` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `amount` INTEGER NOT NULL, `typeId` INTEGER NOT NULL, `note` TEXT, `startDate` INTEGER, `loopType` TEXT, `interval` INTEGER NOT NULL, `weekDaysList` TEXT, `loopNumber` INTEGER NOT NULL, `endDate` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -285,8 +285,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "transactionTypeId",
-            "columnName": "transactionTypeId",
+            "fieldPath": "typeId",
+            "columnName": "typeId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -297,22 +297,40 @@
             "notNull": false
           },
           {
-            "fieldPath": "startTime",
-            "columnName": "startTime",
+            "fieldPath": "startDate",
+            "columnName": "startDate",
             "affinity": "INTEGER",
             "notNull": false
           },
           {
-            "fieldPath": "endTime",
-            "columnName": "endTime",
-            "affinity": "INTEGER",
+            "fieldPath": "loopType",
+            "columnName": "loopType",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "gapDays",
-            "columnName": "gapDays",
+            "fieldPath": "interval",
+            "columnName": "interval",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "weekDaysList",
+            "columnName": "weekDaysList",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "loopNumber",
+            "columnName": "loopNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -384,7 +402,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'de107b603dbd51b2a061cba1202e7edf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd64ac21a4430e57d38c1f389c4e89cd4')"
     ]
   }
 }
