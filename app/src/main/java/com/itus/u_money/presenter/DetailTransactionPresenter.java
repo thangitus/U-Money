@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import com.itus.u_money.App;
-import com.itus.u_money.contract.AddTransactionContract;
+import com.itus.u_money.contract.DetailTransactionContract;
 import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.Transaction;
 import com.itus.u_money.model.TransactionType;
@@ -14,11 +14,11 @@ import com.itus.u_money.model.dao.IconDAO;
 import com.itus.u_money.model.dao.TransactionDAO;
 import com.itus.u_money.model.dao.TransactionTypeDAO;
 
-public class AddTransactionPresenter implements AddTransactionContract.Presenter, Observer<Integer> {
-   private final AddTransactionContract.View view;
+public class DetailTransactionPresenter implements DetailTransactionContract.Presenter, Observer<Integer> {
+   private final DetailTransactionContract.View view;
    LiveData<Integer> resourceId;
 
-   public AddTransactionPresenter(AddTransactionContract.View view) {
+   public DetailTransactionPresenter(DetailTransactionContract.View view) {
       this.view = view;
    }
 

@@ -1,27 +1,29 @@
 package com.itus.u_money.view.activity;
 
+import android.Manifest;
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.view.View;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.itus.u_money.App;
 import com.itus.u_money.R;
-import com.itus.u_money.contract.AddTransactionContract;
-import com.itus.u_money.databinding.ActivityAddTransactionBinding;
+import com.itus.u_money.contract.DetailTransactionContract;
+import com.itus.u_money.databinding.ActivityTransactionDetailBinding;
+import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.Transaction;
 import com.itus.u_money.model.TransactionType;
-import com.itus.u_money.presenter.AddTransactionPresenter;
+import com.itus.u_money.presenter.DetailTransactionPresenter;
 import com.itus.u_money.view.fragment.TypeFragment;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -34,24 +36,44 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 
-public class AddTransactionActivity extends AppCompatActivity implements AddTransactionContract.View {
+public class DetailTransactionActivity extends AppCompatActivity implements DetailTransactionContract.View {
    private static final int REQUEST_CODE_CHOOSE = 1245;
    private static final int REQUEST_CODE = 123;
    private static final int REQUEST_CODE_TYPE = 323;
-   ActivityAddTransactionBinding binding;
-   AddTransactionContract.Presenter presenter;
+   ActivityTransactionDetailBinding binding;
+   DetailTransactionContract.Presenter presenter;
    Transaction transaction;
    Calendar myCalendar;
+   Handler handler = new Handler();
+
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      binding = ActivityAddTransactionBinding.inflate(getLayoutInflater());
-      presenter = new AddTransactionPresenter(this);
-      transaction = new Transaction();
+      binding = ActivityTransactionDetailBinding.inflate(getLayoutInflater());
+      presenter = new DetailTransactionPresenter(this);
+      initActionBar();
+      Intent intent = getIntent();
+      transaction = (Transaction) intent.getSerializableExtra("Transaction");
+      if (transaction != null) {
+         binding.setTransaction(transaction);
+         binding.title.setText("Chi tiết giao dịch");
+         AppDatabase.executorService.execute(() -> {
+            AppDatabase appDatabase = AppDatabase.getDatabase(App.getContext());
+            TransactionType transactionType = appDatabase.transactionTypeDAO()
+                                                         .getById(transaction.transactionTypeId);
+            int resourceId = appDatabase.iconDAO()
+                                        .getResourceIdFromIdInt(transactionType.iconId);
+            handler.post(() -> {
+               binding.imgSelectGroup.setImageResource(resourceId);
+               binding.textTypeName.setText(transactionType.name);
+            });
+         });
+
+      } else
+         transaction = new Transaction();
       myCalendar = Calendar.getInstance();
 
       setContentView(binding.getRoot());
-      initActionBar();
    }
 
    private void initActionBar() {
@@ -71,7 +93,7 @@ public class AddTransactionActivity extends AppCompatActivity implements AddTran
       int day = myCalendar.get(Calendar.DAY_OF_MONTH);
       int month = myCalendar.get(Calendar.MONTH);
       int year = myCalendar.get(Calendar.YEAR);
-      DatePickerDialog datePickerDialog = new DatePickerDialog(AddTransactionActivity.this, R.style.DialogTheme, (datePicker, i, i1, i2) -> {
+      DatePickerDialog datePickerDialog = new DatePickerDialog(DetailTransactionActivity.this, R.style.DialogTheme, (datePicker, i, i1, i2) -> {
          myCalendar.set(Calendar.YEAR, i);
          myCalendar.set(Calendar.MONTH, i1);
          myCalendar.set(Calendar.DAY_OF_MONTH, i2);
@@ -121,7 +143,7 @@ public class AddTransactionActivity extends AppCompatActivity implements AddTran
    public void selectEvent(View view) {}
    public void selectImage(View view) {
       if (checkPermission()) {
-         Matisse.from(AddTransactionActivity.this)
+         Matisse.from(DetailTransactionActivity.this)
                 .choose(MimeType.ofImage(), false)
                 .countable(true)
                 .capture(true)
@@ -173,7 +195,6 @@ public class AddTransactionActivity extends AppCompatActivity implements AddTran
                                         .toString();
       if (transaction.transactionTypeId == 0)
          transaction.transactionTypeId = 7;
-
 
       presenter.saveTransaction(transaction);
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.itus.u_money.App;
+import com.itus.u_money.contract.DetailTransactionContract;
 import com.itus.u_money.contract.TransactionContract;
 import com.itus.u_money.model.AppDatabase;
 import com.itus.u_money.model.Icon;

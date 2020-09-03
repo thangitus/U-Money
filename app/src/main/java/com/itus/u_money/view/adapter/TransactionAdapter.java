@@ -1,14 +1,13 @@
 package com.itus.u_money.view.adapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.itus.u_money.R;
 import com.itus.u_money.databinding.ItemTransactionBinding;
 import com.itus.u_money.model.Icon;
 import com.itus.u_money.model.Transaction;
@@ -22,6 +21,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
    List<Transaction> transactionList;
    List<TransactionType> transactionTypeList;
    List<Icon> iconList;
+   private TransactionListener listener;
    public void setIconList(List<Icon> iconList) {
       this.iconList = iconList;
    }
@@ -31,7 +31,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
    public void setTransactionList(List<Transaction> transactionList) {
       this.transactionList = transactionList;
    }
-   public TransactionAdapter() {
+   public TransactionAdapter(TransactionListener listener) {
+      this.listener = listener;
    }
 
    @NonNull
@@ -55,13 +56,15 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
       return transactionList.size();
    }
 
-   class ViewHolder extends RecyclerView.ViewHolder {
+   class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
       ItemTransactionBinding binding;
       SimpleDateFormat simpleDateFormat;
       public ViewHolder(@NonNull ItemTransactionBinding binding) {
          super(binding.getRoot());
          this.binding = binding;
          simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+         binding.getRoot()
+                .setOnClickListener(this);
       }
       public void bind(Transaction transaction, TransactionType transactionType, Icon icon) {
          binding.iconTransaction.setImageResource(icon.resourceId);
@@ -75,6 +78,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             binding.textViewPrice.setTextColor(Color.BLUE);
          else
             binding.textViewPrice.setTextColor(Color.RED);
+      }
+      @Override
+      public void onClick(View view) {
+         listener.onTransactionClick(transactionList.get(getLayoutPosition()));
       }
    }
 }

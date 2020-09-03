@@ -2,17 +2,18 @@ package com.itus.u_money.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.util.*
 
 @Entity
-class Transaction {
+class Transaction:Serializable {
     @JvmField
     @PrimaryKey(autoGenerate = true)
     var id = 0
     @JvmField
     var date: Date? = null
     @JvmField
-    var amount: Long = 0
+    var amount: Long? = 0
     @JvmField
     var note: String? = null
     @JvmField
@@ -25,4 +26,6 @@ class Transaction {
     var eventId = 0
     @JvmField
     var paymentStatus = false
+
+
 }
