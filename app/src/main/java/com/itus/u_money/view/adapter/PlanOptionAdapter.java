@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.itus.u_money.R;
 import com.itus.u_money.view.activity.BudgetListActivity;
+import com.itus.u_money.view.activity.EventListActivity;
 import com.itus.u_money.view.model.PlanOption;
 
 import java.util.List;
@@ -60,13 +61,23 @@ public class PlanOptionAdapter extends RecyclerView.Adapter<PlanOptionAdapter.Vi
             title = itemView.findViewById(R.id.title);
             subTitle = itemView.findViewById(R.id.subtitle);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.card_press));
+            itemView.setOnClickListener(view -> {
+                view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.card_press));
+
+                TextView textView = view.findViewById(R.id.title);
+
+                switch (textView.getText().toString()) {
+                    case "Ngân sách":
                         context.startActivity(new Intent(context, BudgetListActivity.class));
-                    }
+                        break;
+                    case "Sự kiện":
+                        context.startActivity(new Intent(context, EventListActivity.class));
+                        break;
+                    default:
+                        break;
                 }
+
+            }
             );
         }
 
