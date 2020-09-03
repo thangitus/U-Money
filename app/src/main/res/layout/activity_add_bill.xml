@@ -148,11 +148,12 @@
                                 android:textSize="18sp" />
 
                             <EditText
+                                android:id="@+id/edtAmount"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:focusable="true"
                                 android:inputType="number"
-                                android:text="0đ"
+                                android:hint="0đ"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="42sp" />
 
