@@ -5,6 +5,8 @@ public class BudgetItem {
     String type;
     long amount;
 
+    public BudgetItem() {}
+
     public BudgetItem(int icon, String name, long amount) {
         this.icon = icon;
         this.type = name;

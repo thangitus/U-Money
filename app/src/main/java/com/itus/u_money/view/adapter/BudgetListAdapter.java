@@ -26,6 +26,10 @@ public class BudgetListAdapter extends RecyclerView.Adapter<BudgetListAdapter.Vi
         this.budgetItems = budgetItems;
     }
 
+    public void setBudgetItems(List<BudgetItem> budgetItems) {
+        this.budgetItems = budgetItems;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
