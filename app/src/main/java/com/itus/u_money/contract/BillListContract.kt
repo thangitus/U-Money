@@ -4,7 +4,7 @@ import com.itus.u_money.model.Bill
 
 interface BillListContract {
     interface View {
-        fun setData(items: List<Bill>?)
+        suspend fun setData(items: List<Bill>?)
     }
 
     interface Presenter {

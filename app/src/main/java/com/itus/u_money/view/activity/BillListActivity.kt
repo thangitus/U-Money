@@ -37,8 +37,8 @@ class BillListActivity : AppCompatActivity(), BillListContract.View {
         supportActionBar!!.title = "Hóa đơn"
     }
 
-    override fun setData(items: List<Bill>?) {
-        CoroutineScope(Dispatchers.Main).launch {
+    override suspend fun setData(items: List<Bill>?) {
+        withContext(Dispatchers.Main) {
             adapter.data = items
             adapter.notifyDataSetChanged()
         }

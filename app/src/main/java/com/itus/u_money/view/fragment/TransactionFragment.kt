@@ -69,24 +69,26 @@ class TransactionFragment : Fragment(), TransactionContract.View, TransactionLis
 
     private fun initChart() {
         val chart: PieChart = activity!!.findViewById(R.id.chart)
-        chart.setUsePercentValues(true)
-        chart.description.isEnabled = false
-        chart.setExtraOffsets(5f, 10f, 5f, 5f)
-        chart.dragDecelerationFrictionCoef = 0.95f
-        chart.isDrawHoleEnabled = false
-        chart.setHoleColor(Color.WHITE)
-        chart.setTransparentCircleColor(Color.WHITE)
-        chart.setTransparentCircleAlpha(110)
-        chart.rotationAngle = 0f
-        // enable rotation of the chart by touch
-        chart.isRotationEnabled = true
-        chart.isHighlightPerTapEnabled = true
-        // chart.spin(2000, 0, 360);
-        chart.legend.isEnabled = false
+        with(chart) {
+            setUsePercentValues(true)
+            description.isEnabled = false
+            setExtraOffsets(5f, 10f, 5f, 5f)
+            dragDecelerationFrictionCoef = 0.95f
+            isDrawHoleEnabled = false
+            setHoleColor(Color.WHITE)
+            setTransparentCircleColor(Color.WHITE)
+            setTransparentCircleAlpha(110)
+            rotationAngle = 0f
+            // enable rotation of the chart by touch
+            isRotationEnabled = true
+            isHighlightPerTapEnabled = true
+            // chart.spin(2000, 0, 360);
+            legend.isEnabled = false
+            // entry label styling
+            setEntryLabelColor(Color.WHITE)
+            setEntryLabelTextSize(12f)
+        }
 
-        // entry label styling
-        chart.setEntryLabelColor(Color.WHITE)
-        chart.setEntryLabelTextSize(12f)
         summaryAdapter = SummaryAdapter()
         binding!!.recyclerviewSummary.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         binding!!.recyclerviewSummary.adapter = summaryAdapter

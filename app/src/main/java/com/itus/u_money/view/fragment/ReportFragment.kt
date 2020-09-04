@@ -49,31 +49,38 @@ class ReportFragment : Fragment(), ReportContract.View {
 
     private fun initChart() {
         val chart = activity!!.findViewById<BarChart>(R.id.bar_chart)
-        chart.extraTopOffset = -30f
-        chart.extraBottomOffset = 10f
-        chart.setDrawBarShadow(false)
-        chart.setDrawValueAboveBar(true)
-        chart.description.isEnabled = false
+        with(chart) {
+            extraTopOffset = -30f
+            extraBottomOffset = 10f
+            setDrawBarShadow(false)
+            setDrawValueAboveBar(true)
+            description.isEnabled = false
 
-        // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(true)
-        chart.setDrawGridBackground(false)
-        chart.animateY(500, Easing.EaseInOutQuad)
-        val xAxis = chart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTH_SIDED
-        xAxis.setDrawGridLines(false)
-        xAxis.setDrawAxisLine(false)
-        xAxis.granularity = 1f
-        xAxis.setDrawLabels(false)
-        val left = chart.axisLeft
-        left.setDrawLabels(false)
-        left.spaceTop = 25f
-        left.spaceBottom = 25f
-        left.setDrawAxisLine(false)
-        left.setDrawGridLines(false)
-        left.setDrawZeroLine(true) // draw a zero line
-        left.zeroLineColor = Color.GRAY
-        left.zeroLineWidth = 0.7f
+            // scaling can now only be done on x- and y-axis separately
+            setPinchZoom(true)
+            setDrawGridBackground(false)
+            animateY(500, Easing.EaseInOutQuad)
+        }
+
+        with(chart.xAxis) {
+            position = XAxis.XAxisPosition.BOTH_SIDED
+            setDrawGridLines(false)
+            setDrawAxisLine(false)
+            granularity = 1f
+            setDrawLabels(false)
+        }
+
+        with(chart.axisLeft) {
+            setDrawLabels(false)
+            spaceTop = 25f
+            spaceBottom = 25f
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            setDrawZeroLine(true) // draw a zero line
+            zeroLineColor = Color.GRAY
+            zeroLineWidth = 0.7f
+        }
+
         chart.axisRight.isEnabled = false
         chart.legend.isEnabled = false
 
@@ -156,6 +163,7 @@ class ReportFragment : Fragment(), ReportContract.View {
 
     companion object {
         private var mInstance: ReportFragment? = null
+
         @JvmStatic
         val instance: ReportFragment?
             get() {
