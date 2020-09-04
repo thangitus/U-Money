@@ -9,9 +9,7 @@ import com.itus.u_money.databinding.ActivityBillListBinding
 import com.itus.u_money.model.Bill
 import com.itus.u_money.presenter.BillListPresenter
 import com.itus.u_money.view.adapter.BillAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.util.*
 
 class BillListActivity : AppCompatActivity(), BillListContract.View {
@@ -29,11 +27,7 @@ class BillListActivity : AppCompatActivity(), BillListContract.View {
         binding!!.recyclerview.layoutManager = LinearLayoutManager(this)
         binding!!.recyclerview.itemAnimator = DefaultItemAnimator()
         binding!!.recyclerview.adapter = adapter
-        runBlocking {
-            withContext(Dispatchers.IO) {
-                presenter!!.loadData()
-            }
-        }
+        presenter!!.loadData()
     }
 
     private fun initActionBar() {
@@ -44,6 +38,9 @@ class BillListActivity : AppCompatActivity(), BillListContract.View {
     }
 
     override fun setData(items: List<Bill>?) {
-        adapter.data = items
+        CoroutineScope(Dispatchers.Main).launch {
+            adapter.data = items
+            adapter.notifyDataSetChanged()
+        }
     }
 }

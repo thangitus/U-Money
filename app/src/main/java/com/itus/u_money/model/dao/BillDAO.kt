@@ -1,29 +1,22 @@
-package com.itus.u_money.model.dao;
+package com.itus.u_money.model.dao
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Update;
-
-import com.itus.u_money.model.Bill;
-
-import java.util.List;
+import androidx.room.*
+import com.itus.u_money.model.Bill
 
 @Dao
-public interface BillDAO {
+interface BillDAO {
     @Query("SELECT * FROM `Bill`")
-    List<Bill> getAll();
+     fun getAll(): List<Bill>?
 
     @Query("SELECT * FROM `Bill` WHERE id IN (:billIds)")
-    List<Bill> loadAllByIds(int[] billIds);
+    fun loadAllByIds(billIds: IntArray?): List<Bill?>?
 
     @Insert
-    void insertAll(Bill... bills);
+    fun insertAll(vararg bills: Bill?)
 
     @Update
-    void updateAll(Bill... bills);
+    fun updateAll(vararg bills: Bill?)
 
     @Delete
-    void deleteAll(Bill... bills);
+    fun deleteAll(vararg bills: Bill?)
 }
