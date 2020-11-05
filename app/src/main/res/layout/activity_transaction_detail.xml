@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailTransaction_layout">
 
     <data>
 
@@ -44,7 +45,8 @@
                 android:onClick="onSaveClick"
                 android:text="@string/save"
                 android:textColor="@color/colorWhite"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:id="@+id/btnSave"/>
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
@@ -144,7 +146,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:onClick="selectDate"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/date_picker_actions">
 
                     <ImageView
                         android:layout_width="28dp"
